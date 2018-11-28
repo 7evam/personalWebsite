@@ -1,0 +1,98 @@
+body{
+  height:100vh;
+}
+
+.header, .footer{
+  display:flex;
+  justify-content: space-between;
+  padding-left: 5%;
+  padding-right: 5%;
+  height:10vh;
+}
+
+.header, .pageInfo{
+  border-bottom: 2px solid black;
+}
+
+.footer{
+  border-top: 2px solid black;
+}
+
+#music,#home,#code{
+  width:20%;
+}
+
+.pageInfo{
+display:flex;
+justify-content: space-between;
+overflow:scroll;
+height:25vh;
+}
+
+.evanImageDiv{
+ width:35%;
+ padding-top: 10px;
+}
+
+.evanHeadlineDiv{
+  width:60%;
+}
+
+.evanImage{
+  border-radius: 100%;
+  width:100%;
+  max-width: 180px;
+  margin-left: 5%;
+}
+
+.homePageSplit{
+display:flex;
+justify-content: space-between;
+height:55vh;
+}
+
+.music, .code{
+  width:50%;
+  text-align: center;
+}
+
+.music{
+  border-right: 2px solid black;
+}
+
+.swiper-slide{
+  position:relative;
+}
+
+.musicItem{
+  display:flex;
+  justify-content: space-between;
+  border: 1px solid purple;
+  overflow: auto;
+}
+
+.musicItems{
+  max-height: 100%;
+}
+
+.musicPic{padding-right: 10%;}
+.musicDesc{padding-left: 10%;}
+
+.musicImage{
+  width:150px;
+}
+
+#musicIcon:hover, #codeIcon:hover{
+background-color: red;
+transition: .8s;
+}
+
+#musicHead{
+  display:none;
+}
+
+#homeHead{
+  display:inline;
+}
+
+
