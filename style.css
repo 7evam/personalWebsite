@@ -7,7 +7,7 @@ body{
   justify-content: space-between;
   padding-left: 5%;
   padding-right: 5%;
-  height:10vh;
+/*  height:10vh;*/
 }
 
 .header, .pageInfo{
@@ -18,6 +18,30 @@ body{
   border-top: 2px solid black;
 }
 
+.slackey{
+  font-family: 'Nova Slim', cursive;
+  font-size: 2em;
+}
+
+.nova{
+  font-family: 'Baloo Paaji', cursive;
+  font-size: 2em;
+}
+
+.headline{
+  font-size: 1.3em;
+}
+
+.evanHeadlineDiv{
+  margin-top: 5%;
+}
+
+.evanImageDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  }
+
 #music,#home,#code{
   width:20%;
 }
@@ -26,7 +50,7 @@ body{
 display:flex;
 justify-content: space-between;
 overflow:scroll;
-height:25vh;
+/*height:25vh;*/
 }
 
 .evanImageDiv{
@@ -48,7 +72,7 @@ height:25vh;
 .homePageSplit{
 display:flex;
 justify-content: space-between;
-height:55vh;
+/*height:55vh;*/
 }
 
 .music, .code{
