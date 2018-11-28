@@ -15,9 +15,9 @@ speed: 400,
 initialSlide:1,
 });
 
-const music = document.querySelector('#music')
-const home = document.querySelector('#home')
-const code = document.querySelector('#code')
+const music = document.querySelector('#musicHeader')
+const home = document.querySelector('#homeHeader')
+const code = document.querySelector('#codeHeader')
 const musicIcon = document.querySelector('#musicIcon')
 const codeIcon = document.querySelector('#codeIcon')
 const headline = document.querySelector('#headline')
@@ -30,16 +30,22 @@ function updatePage(){
     music.style.color = 'red';
     home.style.color = 'black';
     code.style.color = 'black';
+    music.style.textDecoration = 'underline'
+    code.style.textDecoration = 'none'
     headline.textContent = musicMessage
   } else if(mySwiper.realIndex === 1){
     music.style.color = 'black';
     home.style.color = 'red';
     code.style.color = 'black';
+    music.style.textDecoration = 'none'
+    code.style.textDecoration = 'none'
     headline.textContent = welcomeMessage
   } else if(mySwiper.realIndex === 2){
     music.style.color = 'black';
     home.style.color = 'black';
     code.style.color = 'red';
+    music.style.textDecoration = 'none'
+    code.style.textDecoration = 'underline'
     headline.textContent = devMessage
   }
 }
