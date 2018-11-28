@@ -7,7 +7,7 @@ body{
   justify-content: space-between;
   padding-left: 5%;
   padding-right: 5%;
-/*  height:10vh;*/
+  height:15vh;
 }
 
 .header, .pageInfo{
@@ -32,16 +32,6 @@ body{
   font-size: 1.3em;
 }
 
-.evanHeadlineDiv{
-  margin-top: 5%;
-}
-
-.evanImageDiv{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  }
-
 #music,#home,#code{
   width:20%;
 }
@@ -50,29 +40,36 @@ body{
 display:flex;
 justify-content: space-between;
 overflow:scroll;
-/*height:25vh;*/
+height:25vh;
 }
 
-.evanImageDiv{
- width:35%;
- padding-top: 10px;
+.headlineImageDiv{
+  width:40vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.evanHeadlineDiv{
-  width:60%;
+.headlineDescDiv{
+  width:60vw
 }
 
-.evanImage{
+.headlineImage{
   border-radius: 100%;
   width:100%;
-  max-width: 180px;
-  margin-left: 5%;
+  margin: 0 auto;
+  max-width:40%;
 }
 
 .homePageSplit{
 display:flex;
 justify-content: space-between;
-/*height:55vh;*/
+height:45vh;
+}
+
+.musicItems{
+  height: 45vh;
+  overflow: scroll;
 }
 
 .music, .code{

@@ -20,26 +20,27 @@ const home = document.querySelector('#home')
 const code = document.querySelector('#code')
 const musicIcon = document.querySelector('#musicIcon')
 const codeIcon = document.querySelector('#codeIcon')
-const homeHead = document.querySelector('#homeHead')
-const musicHead = document.querySelector('#musicHead')
+const headline = document.querySelector('#headline')
+const musicMessage = "I love to play my trumpet and stuff like that. I love to play my trumpet and stuff like that. I love to play my trumpet and stuff like that. I love to play my trumpet and stuff like that. I love to play my trumpet and stuff like that."
+const welcomeMessage = "Welcome to my site. I am Evan. Isn't that great?"
+const devMessage = "I am a forward-thinking web-developer dedicated to solving problems the right way and creating a positive work environment. My musical background encourages me to work creatively and work well as part of a team. I am passionate about web-development and am eager to learn any new technology."
 
 function updatePage(){
   if(mySwiper.realIndex === 0){
     music.style.color = 'red';
     home.style.color = 'black';
     code.style.color = 'black';
-    homeHead.style.display = 'none'
-    musicHead.style.display = 'inline'
+    headline.textContent = musicMessage
   } else if(mySwiper.realIndex === 1){
     music.style.color = 'black';
     home.style.color = 'red';
     code.style.color = 'black';
-    homeHead.style.display = 'inline'
-    musicHead.style.display = 'none'
+    headline.textContent = welcomeMessage
   } else if(mySwiper.realIndex === 2){
     music.style.color = 'black';
     home.style.color = 'black';
     code.style.color = 'red';
+    headline.textContent = devMessage
   }
 }
 
