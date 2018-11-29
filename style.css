@@ -38,6 +38,7 @@ body{
   padding-right: 8%;
   padding-left: 8%;
   font-size: 1.3em;
+  padding-top: 5px;
 }
 
 #musicHeader{
@@ -52,7 +53,7 @@ body{
 /*page info*/
 
 .headline{
-  font-size: 1.3em;
+  font-size: 1.1em;
 }
 
 .pageInfo{
