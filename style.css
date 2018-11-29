@@ -15,7 +15,7 @@ body{
 .header, .footer{
   display:flex;
   justify-content: center;
-  height:5vh;
+  height:30px;
 }
 
 .header, .pageInfo{
@@ -68,7 +68,7 @@ body{
 display:flex;
 justify-content: space-between;
 overflow:scroll;
-height:25vh;
+height:30vh;
 background-color: white;
 transition: 1s;
 }
@@ -93,19 +93,19 @@ transition: 1s;
 
 .headlineImage{
   border-radius: 100%;
-  max-width:100%;
-  max-height: 100%;
+  max-width:90%;
+  max-height: 90%;
 }
 
 .homePageSplit{
 display:flex;
 justify-content: space-between;
-height:60vh;
+height:54vh;
 background-color: white;
 }
 
-.musicItems{
-  height: 60vh;
+.musicItems, .codeItems{
+  height: 54vh;
   overflow: scroll;
   background-color: white;
 }
@@ -117,13 +117,13 @@ background-color: white;
 
 .code{
   border-right: 2px solid black;
-  background-image: url("https://cdn.filestackcontent.com/G33P8iuoRuinYep5O6dt");
+  background-image: url("https://cdn-images-1.medium.com/max/1600/1*qEHHwOKVszxsey7naTiGLQ.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .music{
-  background-image: url('images/EvanLaurenHigh5.jpg');
+  background-image: url('http://www.cabotmusic.co.uk/sheetmusic/images/startrek_notes.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -136,22 +136,22 @@ background-color: white;
   position:relative;
 }
 
-.musicItem{
+.musicItem, .codeItem{
   display:flex;
   justify-content: space-between;
   border: 1px solid purple;
   overflow: auto;
 }
 
-.musicItems{
+.musicItems, .codeItems{
   max-height: 100%;
   transition: 1s;
 }
 
-.musicPic{padding-right: 10%;}
-.musicDesc{padding-left: 10%;}
+.musicPic, .codePic{padding-right: 10%;}
+.musicDesc, .codeDesc{padding-left: 10%;}
 
-.musicImage{
+.musicImage, .codeImage{
   width:150px;
 }
 
@@ -172,7 +172,12 @@ transition: .8s;
   height:20vh;
   transition: 1s;
 }
+  }
 
-
+  @media screen and (max-height: 500px){
+      .pageInfo{
+        background-color: orange;
+        height:140px;
+      }
   }
 

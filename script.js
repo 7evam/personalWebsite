@@ -23,8 +23,7 @@ const codeIcon = document.querySelector('#codeIcon')
 const headline = document.querySelector('#headline')
 const musicMessage = "I love to play my trumpet and stuff like that. I love to play my trumpet and stuff like that. I love to play my trumpet and stuff like that. I love to play my trumpet and stuff like that. I love to play my trumpet and stuff like that."
 const welcomeMessage = "Welcome to my site. I am Evan. Isn't that great?"
-const devMessage = "I am a forward-thinking web-developer dedicated to solving problems the right way and creating a positive work environment. My musical background encourages me to work creatively and work well as part of a team. I am passionate about web-development and am eager to learn any new technology."
-
+const devMessage = "I am a forward-thinking full-stack web developer passionate about solving problems collaboratively and fostering an empathetic work environment. My musical background encourages me to think creatively and work well as part of a team. I am especially interested in working with React and other Javascript-based technologies, but my favorite part of development is learning new technologies."
 function updatePage(){
   if(mySwiper.realIndex === 0){
     music.style.color = 'red';
