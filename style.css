@@ -19,7 +19,7 @@ body{
 }
 
 .header, .pageInfo{
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid black;
 }
 
 .footer{
@@ -139,13 +139,16 @@ background-color: white;
 .musicItem, .codeItem{
   display:flex;
   justify-content: space-between;
-  border: 1px solid purple;
+  outline: 1px solid black;
   overflow: auto;
+  width:50vw;
 }
 
 .musicItems, .codeItems{
   max-height: 100%;
   transition: 1s;
+  display: flex;
+  flex-wrap:wrap
 }
 
 .musicPic, .codePic{padding-right: 10%;}
@@ -171,6 +174,14 @@ transition: .8s;
 .pageInfo{
   height:20vh;
   transition: 1s;
+}
+
+.musicItem, .codeItem{
+  display:flex;
+  justify-content: space-between;
+  outline: 1px solid black;
+  overflow: auto;
+  width:100vw;
 }
   }
 
