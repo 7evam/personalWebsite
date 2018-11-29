@@ -115,15 +115,21 @@ background-color: white;
   text-align: center;
 }
 
-.music{
+.code{
   border-right: 2px solid black;
   background-image: url("https://cdn.filestackcontent.com/G33P8iuoRuinYep5O6dt");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.music:hover{
-  transform: scale(1.2);
+.music{
+  background-image: url('images/EvanLaurenHigh5.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.code:hover, .music:hover{
+  transform: scale(1.1);
 }
 
 .swiper-slide{
