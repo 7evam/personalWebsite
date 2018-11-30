@@ -1,30 +1,54 @@
-/** {
-margin: 0;
-padding: 0;
-}*/
-
-body{
-  height:100vh;
-  background-color: #7FDBFF;
-  margin: 0;
-  padding: 0;
+/*trying this out*/
+html,
+body,
+.page {
+  height: 100%;
+  margin:0;
+  padding:0;
+  /* needed for proper layout */
 }
 
-/*header and footer*/
+body {
+  overflow: hidden;
+}
 
+.page {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  flex: 0 0 auto;
+  background-color: #dcdcdc;
+  height:40px;
+}
+
+.page-content {
+  flex: 1 1 auto;
+  position: relative;/* need this to position inner content */
+  overflow-y: auto;
+}
+
+.footer {
+  flex: 0 0 auto;
+  background-color: #dcdcdc;
+  height:40px;
+}
+
+
+/*trying this out*/
+
+/*old header*/
 .header, .footer{
   display:flex;
   justify-content: center;
   height:30px;
+  background-color: #7FDBFF
 }
+/*old header*/
 
-.header, .pageInfo{
-  border-bottom: 1px solid black;
-}
+/*header and footer*/
 
-.footer{
-  border-top: 2px solid black;
-}
 
 .slackey{
   font-family: 'Lilita One', cursive;
@@ -45,7 +69,7 @@ body{
 .footerItem{
   padding-right: 8%;
   padding-left: 8%;
-  font-size: 1.3em;
+  font-size: 1.5em;
   padding-top: 5px;
 }
 
@@ -64,13 +88,12 @@ body{
   font-size: 1.1em;
 }
 
-.pageInfo{
+.pageInfo, .codeInfo, .musicInfo{
 display:flex;
 justify-content: space-between;
-overflow:scroll;
-height:30vh;
 background-color: white;
 transition: 1s;
+height:30vh;
 }
 
 .headlineImageDiv{
@@ -100,13 +123,12 @@ transition: 1s;
 .homePageSplit{
 display:flex;
 justify-content: space-between;
-height:54vh;
+height:70vh;
 background-color: white;
 }
 
 .musicItems, .codeItems{
-  height: 54vh;
-  overflow: scroll;
+  height: 70vh;
   background-color: white;
 }
 
@@ -151,8 +173,12 @@ background-color: white;
   flex-wrap:wrap
 }
 
-.musicPic, .codePic{padding-right: 10%;}
-.musicDesc, .codeDesc{padding-left: 10%;}
+.musicPic, .codePic{
+  padding-right: 8%;
+  padding-top: 1%;
+  padding-bottom:1%;
+}
+.musicDesc, .codeDesc{padding-left: 8%;}
 
 .musicImage, .codeImage{
   width:150px;
@@ -160,20 +186,24 @@ background-color: white;
 
 #musicIcon:hover, #codeIcon:hover{
 background-color: red;
-transition: .8s;
 }
 
 
 @media screen and (max-width: 850px){
   .musicItems, .homePageSplit{
-    height:65vh;
-    transition:1s;
+    height:auto;
+    /*transition:1s;*/
     background-color: green;
   }
 
-.pageInfo{
-  height:20vh;
-  transition: 1s;
+.pageInfo, .codeInfo, .musicInfo{
+ display:flex;
+justify-content: space-between;
+/*overflow:scroll;*/
+background-color: white;
+transition: 1s;
+font-size: .9em;
+height:auto;
 }
 
 .musicItem, .codeItem{
@@ -183,12 +213,19 @@ transition: .8s;
   overflow: auto;
   width:100vw;
 }
+
+.headlineImage{
+  border-radius: 100%;
+  max-width:90%;
+  max-height: 90%;
+  padding:10px;
+}
   }
 
   @media screen and (max-height: 500px){
       .pageInfo{
         background-color: orange;
-        height:140px;
+/*        height:140px;*/
       }
   }
 

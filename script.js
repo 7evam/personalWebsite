@@ -21,9 +21,11 @@ const code = document.querySelector('#codeHeader')
 const musicIcon = document.querySelector('#musicIcon')
 const codeIcon = document.querySelector('#codeIcon')
 const headline = document.querySelector('#headline')
-const musicMessage = "I love to play my trumpet and stuff like that. I love to play my trumpet and stuff like that. I love to play my trumpet and stuff like that. I love to play my trumpet and stuff like that. I love to play my trumpet and stuff like that."
+const musicMessage = "I’m a trumpet player, arranger, curator, and composer living in NYC since 2012. I regularly perform all over NYC and occasionally the world, and have recorded from everywhere from my home studio to Sony BMG studios. I pride myself on being able to fit in any musical setting and love playing in all genres."
 const welcomeMessage = "Welcome to my site. I am Evan. Isn't that great?"
 const devMessage = "I am a forward-thinking full-stack web developer passionate about solving problems collaboratively and fostering an empathetic work environment. My musical background encourages me to think creatively and work well as part of a team. I am especially interested in working with React and other Javascript-based technologies, but my favorite part of development is learning new technologies."
+
+
 function updatePage(){
   if(mySwiper.realIndex === 0){
     music.style.color = 'red';
