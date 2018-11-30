@@ -5,11 +5,8 @@ body,
   height: 100%;
   margin:0;
   padding:0;
+  overflow: scroll;
   /* needed for proper layout */
-}
-
-body {
-  overflow: hidden;
 }
 
 .page {
@@ -26,8 +23,7 @@ body {
 .page-content {
   flex: 1 1 auto;
   position: relative;/* need this to position inner content */
-  /*overflow-y: auto;*/
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .footer {
@@ -89,7 +85,7 @@ body {
   font-size: 1.1em;
 }
 
-.pageInfo, .codeInfo, .musicInfo{
+.pageInfo{
 display:flex;
 justify-content: space-between;
 background-color: white;
@@ -102,13 +98,13 @@ height:30vh;
   display: flex;
   align-items: center;
   justify-content: center;
-   bottom: 0;
-    left: 0;
-    margin: auto;
-    right: 0;
-    text-align: center;
-    top: 0;
-    height:95%;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  right: 0;
+  text-align: center;
+  top: 0;
+  height:95%;
 }
 
 .headlineDescDiv{
@@ -117,8 +113,8 @@ height:30vh;
 
 .headlineImage{
   border-radius: 100%;
-  max-width:90%;
-  max-height: 90%;
+  max-width:200px;
+  max-height:200px;
 }
 
 .homePageSplit{
@@ -126,10 +122,11 @@ display:flex;
 justify-content: space-between;
 height:70vh;
 background-color: white;
+
 }
 
 .musicItems, .codeItems{
-  height: 70vh;
+  /*height: 70vh;*/
   background-color: white;
 }
 
@@ -163,15 +160,14 @@ background-color: white;
   display:flex;
   justify-content: space-between;
   outline: 1px solid black;
-  overflow: auto;
   width:50vw;
 }
 
 .musicItems, .codeItems{
-  max-height: 100%;
-  transition: 1s;
+  /*max-height: 100%;*/
+  /*transition: 1s;*/
   display: flex;
-  flex-wrap:wrap
+  flex-wrap: wrap;
 }
 
 .musicPic, .codePic{
@@ -189,44 +185,69 @@ background-color: white;
 background-color: red;
 }
 
+.info-wrapper{
+ display: block;
+ overflow: auto;
+}
 
-@media screen and (max-width: 850px){
+.pageInfo{
+  height: auto;
+}
+
+@media screen and (max-width: 650px){
+  .headlineImage{
+  border-radius: 100%;
+  max-width:80%;
+  max-height:80%;
+}
+}
+
+@media screen and (max-width: 450px){
+  .headlineImage{
+  border-radius: 100%;
+  max-width:90%;
+  max-height:90%;
+}
+}
+
+/*@media screen and (max-width: 850px){
   .musicItems{
-    height:auto;
-    /*transition:1s;*/
+   height:auto;
+    transition:1s;
     background-color: green;
   }
 
-.codeInfo, .musicInfo{
+.pageInfo{
  display:flex;
 justify-content: space-between;
-/*overflow:scroll;*/
 background-color: white;
 transition: 1s;
 font-size: .9em;
-height:auto;
+}
+
+.info-wrapper{
+ display: block;
+ overflow: auto;
 }
 
 .musicItem, .codeItem{
   display:flex;
   justify-content: space-between;
   outline: 1px solid black;
-  overflow: auto;
   width:100vw;
 }
 
 .headlineImage{
   border-radius: 100%;
   max-width:90%;
-  max-height: 90%;
+ max-height: 90%;
   padding:10px;
 }
-  }
+  }*/
 
-  @media screen and (max-height: 500px){
+/*  @media screen and (max-height: 500px){
       .pageInfo{
         background-color: orange;
-/*        height:140px;*/
       }
-  }
+  }*/
 
