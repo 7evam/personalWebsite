@@ -26,7 +26,8 @@ body {
 .page-content {
   flex: 1 1 auto;
   position: relative;/* need this to position inner content */
-  overflow-y: auto;
+  /*overflow-y: auto;*/
+  overflow: scroll;
 }
 
 .footer {
@@ -190,13 +191,13 @@ background-color: red;
 
 
 @media screen and (max-width: 850px){
-  .musicItems, .homePageSplit{
+  .musicItems{
     height:auto;
     /*transition:1s;*/
     background-color: green;
   }
 
-.pageInfo, .codeInfo, .musicInfo{
+.codeInfo, .musicInfo{
  display:flex;
 justify-content: space-between;
 /*overflow:scroll;*/
