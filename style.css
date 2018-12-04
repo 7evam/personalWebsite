@@ -16,7 +16,7 @@ body,
 
 .header {
   flex: 0 0 auto;
-  background-color: #dcdcdc;
+  background-color: #CAFAFE;
   height:40px;
 }
 
@@ -28,7 +28,7 @@ body,
 
 .footer {
   flex: 0 0 auto;
-  background-color: #dcdcdc;
+  background-color: #CAFAFE;
   height:40px;
 }
 
@@ -40,12 +40,14 @@ body,
   display:flex;
   justify-content: center;
   height:30px;
-  background-color: #7FDBFF
+  background-color: #84CEEB;
+
 }
 /*old header*/
 
 /*header and footer*/
 
+/*for colors checkout #21 at https://blog.visme.co/website-color-schemes/*/
 
 .slackey{
   font-family: 'Lilita One', cursive;
@@ -91,6 +93,7 @@ justify-content: space-between;
 background-color: white;
 transition: 1s;
 height:30vh;
+background-color: #C1C8E4;
 }
 
 .headlineImageDiv{
@@ -108,10 +111,13 @@ height:30vh;
 }
 
 .headlineDescDiv{
-  width:70vw
+  width:70vw;
+  outline: 2px solid black;
+  padding: 8px;
 }
 
 .headlineImage{
+  padding:8px;
   border-radius: 100%;
   max-width:200px;
   max-height:200px;
@@ -133,9 +139,11 @@ background-color: white;
 .music, .code{
   width:50%;
   text-align: center;
+  display: inline-block;
+  overflow: hidden;
 }
 
-.code{
+/*.code{
   border-right: 2px solid black;
   background-image: url("https://cdn-images-1.medium.com/max/1600/1*qEHHwOKVszxsey7naTiGLQ.png");
   background-repeat: no-repeat;
@@ -146,10 +154,13 @@ background-color: white;
   background-image: url('http://www.cabotmusic.co.uk/sheetmusic/images/startrek_notes.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-}
+}*/
 
 .code:hover, .music:hover{
   transform: scale(1.1);
+  transition: .6s;
+  display: inline-block;
+  overflow: hidden;
 }
 
 .swiper-slide{
@@ -181,9 +192,7 @@ background-color: white;
   width:150px;
 }
 
-#musicIcon:hover, #codeIcon:hover{
-background-color: red;
-}
+
 
 .info-wrapper{
  display: block;
