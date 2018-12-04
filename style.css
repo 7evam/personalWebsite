@@ -9,9 +9,14 @@ body,
   /* needed for proper layout */
 }
 
+/*body{
+  height:100%;
+}
+*/
 .page {
   display: flex;
   flex-direction: column;
+  background-color: #F2FDFF;
 }
 
 .header {
@@ -40,8 +45,8 @@ body,
   display:flex;
   justify-content: center;
   height:30px;
-  background-color: #84CEEB;
-
+  background-color: #101935;
+  color: white;
 }
 /*old header*/
 
@@ -93,7 +98,8 @@ justify-content: space-between;
 background-color: white;
 transition: 1s;
 height:30vh;
-background-color: #C1C8E4;
+background-color: #9AD4D6;
+border-bottom: 2px solid black;
 }
 
 .headlineImageDiv{
@@ -127,13 +133,13 @@ background-color: #C1C8E4;
 display:flex;
 justify-content: space-between;
 height:70vh;
-background-color: white;
+/*background-color: white;*/
 
 }
 
 .musicItems, .codeItems{
   /*height: 70vh;*/
-  background-color: white;
+  /*background-color: #F2FDFF;*/
 }
 
 .music, .code{
@@ -141,6 +147,7 @@ background-color: white;
   text-align: center;
   display: inline-block;
   overflow: hidden;
+  height:110%;
 }
 
 /*.code{
@@ -169,8 +176,22 @@ background-color: white;
 
 .musicItem, .codeItem{
   display:flex;
-  justify-content: space-between;
-  outline: 1px solid black;
+  border-left: 2px solid black;
+  border-bottom: 2px solid black;
+  border-top: 2 px solid black;
+  margin-right: -1px;
+  margin-left: -1px;
+  border-collapse: collapse;
+  width:50vw;
+}
+
+.musicItem:last-child, .codeItem:last-child{
+  display:flex;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+  border-top: 2 px solid black;
+  margin: -3px;
+  border-collapse: collapse;
   width:50vw;
 }
 
@@ -219,8 +240,8 @@ background-color: white;
 }
 }
 
-/*@media screen and (max-width: 850px){
-  .musicItems{
+@media screen and (max-width: 850px){
+/*  .musicItems{
    height:auto;
     transition:1s;
     background-color: green;
@@ -238,25 +259,19 @@ font-size: .9em;
  display: block;
  overflow: auto;
 }
-
-.musicItem, .codeItem{
+*/
+.musicItem, .codeItem, .musicItem:last-child, .codeItem:last-child {
   display:flex;
   justify-content: space-between;
-  outline: 1px solid black;
   width:100vw;
+  border-right: 0px;
 }
 
-.headlineImage{
+/*.headlineImage{
   border-radius: 100%;
   max-width:90%;
  max-height: 90%;
   padding:10px;
-}
-  }*/
-
-/*  @media screen and (max-height: 500px){
-      .pageInfo{
-        background-color: orange;
-      }
-  }*/
+}*/
+  }
 

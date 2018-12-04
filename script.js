@@ -28,41 +28,30 @@ const musicMessage = "I’m a trumpet player, arranger, curator, and composer li
 const welcomeMessage = "Welcome to my site. I am Evan. Isn't that great?"
 const devMessage = "I am a forward-thinking full-stack web developer passionate about solving problems collaboratively and fostering an empathetic work environment. My musical background encourages me to think creatively and work well as part of a team. I am especially interested in working with React and other Javascript-based technologies, but my favorite part of development is learning new technologies."
 
-function isOverflown(element) {
-    return element.scrollHeight > element.clientHeight;
-}
-
-function resizeInfo(){
-  if (isOverflown(pageInfo)){
-    pageInfo.style.height="auto"
-  } else {
-    pageInfo.style.height=""
-  }
-}
-
 function updatePage(){
+  document.querySelector(".page-content").scrollTo(0,0)
   if(mySwiper.realIndex === 0){
-    music.style.color = 'red';
-    home.style.color = 'black';
-    code.style.color = 'black';
+    music.style.color = '#DBCBD8';
+    home.style.color = 'white';
+    code.style.color = 'white';
     music.style.textDecoration = 'underline'
     code.style.textDecoration = 'none'
     headline.textContent = musicMessage
     pageContent.style.overflow = 'scroll'
     // musicItems.style.display = 'flex'
   } else if(mySwiper.realIndex === 1){
-    music.style.color = 'black';
-    home.style.color = 'red';
-    code.style.color = 'black';
+    music.style.color = 'white';
+    home.style.color = '#DBCBD8';
+    code.style.color = 'white';
     music.style.textDecoration = 'none'
     code.style.textDecoration = 'none'
     headline.textContent = welcomeMessage
     pageContent.style.overflow = 'hidden'
     // musicItems.style.display = 'flex'
   } else if(mySwiper.realIndex === 2){
-    music.style.color = 'black';
-    home.style.color = 'black';
-    code.style.color = 'red';
+    music.style.color = 'white';
+    home.style.color = 'white';
+    code.style.color = '#DBCBD8';
     music.style.textDecoration = 'none'
     code.style.textDecoration = 'underline'
     headline.textContent = devMessage
@@ -72,7 +61,7 @@ function updatePage(){
 }
 
 home.style.color = 'red'
-mySwiper.on("slideChange",updatePage, resizeInfo);
+mySwiper.on("slideChange",updatePage);
 
 music.addEventListener("click",function(){mySwiper.slideTo(0)})
 musicIcon.addEventListener("click",function(){mySwiper.slideTo(0)})
