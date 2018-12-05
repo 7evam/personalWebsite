@@ -28,7 +28,7 @@ body,
 .page-content {
   flex: 1 1 auto;
   position: relative;/* need this to position inner content */
-  overflow: hidden;
+  overflow: scroll;
 }
 
 .footer {
@@ -101,8 +101,8 @@ body,
 display:flex;
 justify-content: space-between;
 transition: 1s;
-height:30vh;
-background-color: #99a9db;
+/*height:30vh;
+*/background-color: #98AFC7;
 color:#484848;
 }
 
@@ -135,7 +135,7 @@ color:#484848;
 .homePageSplit{
 display:flex;
 justify-content: space-between;
-height:70vh;
+height:45vh;
 /*background-color: white;*/
 
 }
@@ -149,7 +149,7 @@ height:70vh;
   width:50%;
   text-align: center;
 position: relative;
-
+  transform: translateY(5%);
 }
 
 /*.code{
@@ -166,8 +166,9 @@ position: relative;
 }*/
 
 .code:hover, .music:hover{
-  transform: scale(1.1);
+  /*transform: scale(1.1);*/
   transition: .6s;
+  transform: translateY(3%);
 /*  display: inline-block;
   overflow: hidden;*/
 }
@@ -240,12 +241,11 @@ position: relative;
 
 .home-icon{
   font-size: 7em;
-  transform: translateY(80%);
 }
 
 .speech-bubble {
   position: relative;
-  background: #dfd8e3;
+  background: #FEFCFF;
   border-radius: .4em;
   padding: 10px;
 }

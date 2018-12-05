@@ -33,7 +33,7 @@ function updatePage(){
     music.style.textDecoration = 'underline'
     code.style.textDecoration = 'none'
     headline.innerHTML = musicMessage
-    pageContent.style.overflow = 'scroll'
+    // pageContent.style.overflow = 'scroll'
     // musicItems.style.height = ''
     // musicItems.style.display = 'flex'
   } else if(mySwiper.realIndex === 1){
@@ -43,7 +43,7 @@ function updatePage(){
     music.style.textDecoration = 'none'
     code.style.textDecoration = 'none'
     headline.innerHTML = welcomeMessage
-    pageContent.style.overflow = 'hidden'
+    // pageContent.style.overflow = 'hidden'
     // musicItems.style.height = ''
     // musicItems.style.display = 'flex'
   } else if(mySwiper.realIndex === 2){
@@ -53,7 +53,7 @@ function updatePage(){
     music.style.textDecoration = 'none'
     code.style.textDecoration = 'underline'
     headline.innerHTML = devMessage
-    pageContent.style.overflow = 'scroll'
+    // pageContent.style.overflow = 'scroll'
     // musicItems.style.height = '1px'
   }
 }
