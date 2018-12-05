@@ -51,10 +51,6 @@ body,
 
 /*experiment down here*/
 
-/*.header{
-  position:fixed;
-  bottom: 0;
-}*/
 
 
 
@@ -104,11 +100,10 @@ body,
 .pageInfo{
 display:flex;
 justify-content: space-between;
-background-color: white;
 transition: 1s;
 height:30vh;
-background-color: #9AD4D6;
-border-bottom: 2px solid black;
+background-color: #99a9db;
+color:#484848;
 }
 
 .headlineImageDiv{
@@ -127,7 +122,6 @@ border-bottom: 2px solid black;
 
 .headlineDescDiv{
   width:70vw;
-  outline: 2px solid black;
   padding: 8px;
 }
 
@@ -154,9 +148,8 @@ height:70vh;
 .music, .code{
   width:50%;
   text-align: center;
-  display: inline-block;
-  overflow: hidden;
-  height:110%;
+position: relative;
+
 }
 
 /*.code{
@@ -175,8 +168,8 @@ height:70vh;
 .code:hover, .music:hover{
   transform: scale(1.1);
   transition: .6s;
-  display: inline-block;
-  overflow: hidden;
+/*  display: inline-block;
+  overflow: hidden;*/
 }
 
 .swiper-slide{
@@ -185,20 +178,32 @@ height:70vh;
 
 .musicItem, .codeItem{
   display:flex;
-  border-left: 2px solid black;
-  border-bottom: 2px solid black;
-  border-top: 2 px solid black;
+  border-left: 2px dotted  black;
+  border-bottom: 2px dotted  black;
+  border-top: 2 px dotted  black;
   margin-right: -1px;
   margin-left: -1px;
   border-collapse: collapse;
   width:50vw;
+  color: #484848;
+}
+
+.musicDesc a, .codeDesc a{
+  color:black;
+  font-size: 1.1em;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.musicDesc h3:hover{
+  text-decoration: underline;
 }
 
 .musicItem:last-child, .codeItem:last-child{
   display:flex;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
-  border-top: 2 px solid black;
+  border-left: 2px dotted  black;
+  border-right: 2px dotted black;
+  border-bottom: 2px dotted  black;
   margin: -3px;
   border-collapse: collapse;
   width:50vw;
@@ -231,6 +236,33 @@ height:70vh;
 
 .pageInfo{
   height: auto;
+}
+
+.home-icon{
+  font-size: 7em;
+  transform: translateY(80%);
+}
+
+.speech-bubble {
+  position: relative;
+  background: #dfd8e3;
+  border-radius: .4em;
+  padding: 10px;
+}
+
+.speech-bubble:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-right-color: #dfd8e3;
+  border-left: 0;
+  border-bottom: 0;
+  margin-top: -10px;
+  margin-left: -20px;
 }
 
 @media screen and (max-width: 650px){
