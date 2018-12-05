@@ -1,16 +1,11 @@
 var mySwiper = new Swiper('.swiper-container', {
-  pagination: {
-    el: '.swiper-pagination',
-    type: 'progressbar',
-  },
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
   keyboard: {
     enabled: true,
     onlyInViewport: false,
-},
+  },
+  scrollbar: {
+    draggable: true
+  },
 speed: 400,
 initialSlide:1,
 });
@@ -38,6 +33,7 @@ function updatePage(){
     code.style.textDecoration = 'none'
     headline.textContent = musicMessage
     pageContent.style.overflow = 'scroll'
+    // musicItems.style.height = ''
     // musicItems.style.display = 'flex'
   } else if(mySwiper.realIndex === 1){
     music.style.color = 'white';
@@ -47,6 +43,7 @@ function updatePage(){
     code.style.textDecoration = 'none'
     headline.textContent = welcomeMessage
     pageContent.style.overflow = 'hidden'
+    // musicItems.style.height = ''
     // musicItems.style.display = 'flex'
   } else if(mySwiper.realIndex === 2){
     music.style.color = 'white';
@@ -56,7 +53,7 @@ function updatePage(){
     code.style.textDecoration = 'underline'
     headline.textContent = devMessage
     pageContent.style.overflow = 'scroll'
-    // musicItems.style.height = '10px'
+    // musicItems.style.height = '1px'
   }
 }
 

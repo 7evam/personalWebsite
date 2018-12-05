@@ -48,9 +48,18 @@ body,
   background-color: #101935;
   color: white;
 }
-/*old header*/
 
-/*header and footer*/
+/*experiment down here*/
+
+/*.header{
+  position:fixed;
+  bottom: 0;
+}*/
+
+
+
+
+/*experiment up here*/
 
 /*for colors checkout #21 at https://blog.visme.co/website-color-schemes/*/
 
