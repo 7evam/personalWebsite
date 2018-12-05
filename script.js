@@ -1,4 +1,5 @@
 var mySwiper = new Swiper('.swiper-container', {
+  autoHeight: true,
   keyboard: {
     enabled: true,
     onlyInViewport: false,
