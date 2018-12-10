@@ -27,7 +27,7 @@ const devMessage = "<p>I am a forward-thinking full-stack web developer passiona
 function updatePage(){
   document.querySelector(".page-content").scrollTo(0,0)
   if(mySwiper.realIndex === 0){
-    music.style.color = '#DBCBD8';
+    music.style.color = '#FF6B6B';
     home.style.color = 'white';
     code.style.color = 'white';
     music.style.textDecoration = 'underline'
@@ -38,7 +38,7 @@ function updatePage(){
     // musicItems.style.display = 'flex'
   } else if(mySwiper.realIndex === 1){
     music.style.color = 'white';
-    home.style.color = '#DBCBD8';
+    home.style.color = '#FF6B6B';
     code.style.color = 'white';
     music.style.textDecoration = 'none'
     code.style.textDecoration = 'none'
@@ -49,7 +49,7 @@ function updatePage(){
   } else if(mySwiper.realIndex === 2){
     music.style.color = 'white';
     home.style.color = 'white';
-    code.style.color = '#DBCBD8';
+    code.style.color = '#FF6B6B';
     music.style.textDecoration = 'none'
     code.style.textDecoration = 'underline'
     headline.innerHTML = devMessage
@@ -58,7 +58,7 @@ function updatePage(){
   }
 }
 
-home.style.color = 'red'
+home.style.color = '#FF6B6B'
 mySwiper.on("slideChange",updatePage);
 
 music.addEventListener("click",function(){mySwiper.slideTo(0)})

@@ -2,35 +2,33 @@
 html,
 body,
 .page {
-  height: 100%;
-  margin:0;
-  padding:0;
-  overflow: scroll;
-  /* needed for proper layout */
+  height: 100vh; /* needed for proper layout */
+  margin: 0px;
+}
+
+body {
+  overflow: hidden;
 }
 
 .page {
   display: flex;
   flex-direction: column;
-  background-color: #98AFC7;
+  background-color: #F7FFF7;
 }
 
 .header {
   flex: 0 0 auto;
-  background-color: #CAFAFE;
   height:40px;
 }
 
 .page-content {
   flex: 1 1 auto;
   position: relative;/* need this to position inner content */
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .footer {
   flex: 0 0 auto;
-  background-color: #CAFAFE;
-  height:40px;
 }
 
 
@@ -40,25 +38,30 @@ body,
 .header, .footer{
   display:flex;
   justify-content: center;
-  height:30px;
-  background-color: #101935;
+  height:50px;
+  background-color: #122C34;
   color: white;
+  font-family: 'Londrina Solid', cursive !important;
+}
+
+.footer{
+  height:35px;
 }
 
 /*for colors checkout #21 at https://blog.visme.co/website-color-schemes/*/
 
 .slackey{
-  font-family: 'Lilita One', cursive;
+  font-family: 'Assistant', sans-serif;
 }
 
-.nova{
-  font-family: 'Baloo Paaji', cursive;
+p{
+  font-family: 'Assistant', sans-serif;
 }
 
 .headerItem{
   height:100%;
-  padding-right: 8%;
-  padding-left: 8%;
+  padding-right: 5%;
+  padding-left: 5%;
   margin-top: -20px;
   font-size: 1.3em;
 }
@@ -70,13 +73,19 @@ body,
   padding-top: 5px;
 }
 
-#musicHeader{
-  margin-top: -14px;
-}
-
 #homeHeader{
   padding-left:2px;
   padding-right: 2px;
+}
+
+.header-text{
+  font-family: 'Voces', cursive;
+  padding:10px;
+}
+
+.header-text:hover{
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 /*page info*/
@@ -89,7 +98,7 @@ body,
 display:flex;
 justify-content: space-between;
 transition: 1s;
-background-color: #98AFC7;
+background-color: #F7FFF7;
 color:#484848;
 }
 
@@ -116,7 +125,7 @@ color:#484848;
 
 .speech-bubble {
   position: relative;
-  background: #FEFCFF;
+  background: #E3E4DB;
   border-radius: .4em;
   padding: 10px;
 }
@@ -146,6 +155,7 @@ color:#484848;
 .homePageSplit{
 display:flex;
 justify-content: space-between;
+background-color: #F7FFF7;
 }
 
 .musicImage{
@@ -156,12 +166,7 @@ justify-content: space-between;
   width:50%;
   text-align: center;
 position: relative;
-margin-top:5%;
 padding-bottom: 5%;
-}
-
-.homePageSplit{
-  background-color: #98AFC7;
 }
 
 /*.swiper-slide{
@@ -170,24 +175,14 @@ padding-bottom: 5%;
 
 .musicItem, .codeItem{
   display:flex;
-  border-left: 2px dotted  black;
-  border-bottom: 2px dotted  black;
-  border-top: 2 px dotted  black;
-  margin-right: -1px;
-  margin-left: -1px;
-  border-collapse: collapse;
-  width:50vw;
+/*  border-left: 1px dotted  black;
+  border-bottom: 1px dotted  black;
+  border-top: 1px dotted  black;
+  margin-right: -2px;
+  margin-left: -2px;
+  border-collapse: collapse;*/
+  width:49vw;
   color: #484848;
-}
-
-.musicItem:last-child, .codeItem:last-child{
-  display:flex;
-  border-left: 2px dotted  black;
-  border-right: 2px dotted black;
-  border-bottom: 2px dotted  black;
-  margin: -3px;
-  border-collapse: collapse;
-  width:50vw;
 }
 
 .musicItems, .codeItems{
@@ -201,8 +196,16 @@ padding-bottom: 5%;
   padding-bottom:1%;
 }
 
-.musicDesc, .codeDesc h3:hover{
+/*.musicDesc h3:hover, .codeDesc h3:hover{
   text-decoration: underline;
+}*/
+
+.link:hover{
+  text-decoration: underline;
+}
+
+.link{
+  color:#484848 !important;
 }
 
 .musicDesc a, .codeDesc a{
@@ -231,7 +234,7 @@ padding-bottom: 5%;
 
 .home-icon{
   font-size: 7em;
-  background-color: red;
+  background-color: #4ECDC4;
   padding:10%;
 }
 
@@ -241,16 +244,25 @@ padding-bottom: 5%;
 }
 
 @media screen and (max-width: 660px){
+  .headlineImageDiv{
+    width:100%;
+  }
+
+  .headlineDescDiv{
+    width:100%;
+  }
+
+  .pageInfo{
+    display:inline;
+  }
 
   .headlineImage{
   border-radius: 100%;
-  max-width:80%;
-  max-height:80%;
   }
 
   .speech-bubble {
   position: relative;
-  background: #00aabb;
+  background: #D1CCDC;
   border-radius: .4em;
   }
 
@@ -273,8 +285,6 @@ padding-bottom: 5%;
 @media screen and (max-width: 450px){
     .headlineImage{
     border-radius: 100%;
-    max-width:90%;
-    max-height:90%;
   }
 }
 
@@ -286,4 +296,3 @@ padding-bottom: 5%;
     border-right: 0px;
   }
 }
-
