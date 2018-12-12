@@ -36,8 +36,6 @@ function updatePage(){
     music.style.textDecoration = 'underline'
     code.style.textDecoration = 'none'
     headline.innerHTML = musicMessage;
-    left.style.display = 'none';
-    right.style.display = ''
     // pageContent.style.overflow = 'scroll'
     // musicItems.style.height = ''
     // musicItems.style.display = 'flex'
@@ -48,8 +46,6 @@ function updatePage(){
     music.style.textDecoration = 'none';
     code.style.textDecoration = 'none';
     headline.innerHTML = welcomeMessage;
-    right.style.display='';
-    left.style.display='';
     // pageContent.style.overflow = 'hidden'
     // musicItems.style.height = ''
     // musicItems.style.display = 'flex'
@@ -60,8 +56,6 @@ function updatePage(){
     music.style.textDecoration = 'none'
     code.style.textDecoration = 'underline'
     headline.innerHTML = devMessage;
-    right.style.display = 'none';
-    left.style.display = ''
     // pageContent.style.overflow = 'scroll'
     // musicItems.style.height = '1px'
   }
@@ -72,8 +66,6 @@ mySwiper.on("slideChange",updatePage);
 
 music.addEventListener("click",function(){mySwiper.slideTo(0)})
 musicIcon.addEventListener("click",function(){mySwiper.slideTo(0)})
-right.addEventListener("click",function(){mySwiper.slideNext()})
-left.addEventListener("click",function(){mySwiper.slidePrev()})
 home.addEventListener("click",function(){mySwiper.slideTo(1)})
 code.addEventListener("click",function(){mySwiper.slideTo(2)})
 codeIcon.addEventListener("click",function(){mySwiper.slideTo(2)})
