@@ -39,6 +39,21 @@ body {
 color:white;
 }
 
+.arrow{
+  position:fixed;
+  color: red;
+  font-size: 4em;
+  z-index: 100;
+}
+
+.arrow:hover{
+  color:blue;
+  transition: .5s;
+}
+
+.right{
+right:2%;
+}
 
 /*trying this out*/
 
