@@ -16,6 +16,25 @@ body {
   background-color: #F7FFF7;
 }
 
+#mushroom-style{
+  color: black;
+}
+
+#mushroom-style:hover{
+  font-weight: 600;
+  cursor: pointer;
+}
+
+a{
+  color: black;
+  text-decoration: none;
+}
+
+a:hover{
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .header {
   flex: 0 0 auto;
   height:40px;
@@ -58,10 +77,6 @@ color:white;
 
 /*for colors checkout #21 at https://blog.visme.co/website-color-schemes/*/
 
-.slackey{
-  font-family: 'Assistant', sans-serif;
-}
-
 p{
   font-family: 'Assistant', sans-serif;
 }
@@ -87,7 +102,7 @@ p{
 }
 
 .header-text{
-  font-family: 'Voces', cursive;
+  font-family: 'Voces', sans-serif;
   padding:10px;
 }
 
@@ -270,6 +285,7 @@ transition: .6s;
   .speech-bubble {
   position: relative;
   border-radius: .4em;
+  margin-right: 15px;
   }
 
   .speech-bubble:after {
