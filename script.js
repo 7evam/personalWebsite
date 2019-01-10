@@ -84,5 +84,4 @@ musicIcon.addEventListener("click",function(){mySwiper.slideTo(0)})
 home.addEventListener("click",function(){mySwiper.slideTo(1)})
 code.addEventListener("click",function(){mySwiper.slideTo(2)})
 codeIcon.addEventListener("click",function(){mySwiper.slideTo(2)})
-
 mushroomStyle.addEventListener("click",mushroomPic)
