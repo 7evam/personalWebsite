@@ -180,10 +180,6 @@ justify-content: space-between;
 background-color: #F7FFF7;
 }
 
-.musicImage{
-  min-width: 180px;
-}
-
 .music, .code{
   width:50%;
   text-align: center;
@@ -240,8 +236,10 @@ transition: .6s;
   padding-left: 8%;
 }
 
-.musicImage, .codeImage{
+.demoImage{
+  min-width: 180px;
   width:150px;
+  padding:10px;
 }
 
 .info-wrapper{
