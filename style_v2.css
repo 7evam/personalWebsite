@@ -4,10 +4,11 @@ body,
 .page {
   height: 100vh; /* needed for proper layout */
   margin: 0px;
+  overflow-x: hidden !important;
 }
 
 body {
-  overflow: hidden;
+  overflow-y: hidden;
 }
 
 .page {
@@ -168,7 +169,6 @@ color:#484848;
 }
 
 .headlineDescDiv{
-  width:70vw;
   padding: 8px;
 }
 
@@ -193,7 +193,7 @@ padding-bottom: 5%;
 
 .musicItem, .codeItem{
   display:flex;
-  width:49vw;
+  width:50vw;
   color: #484848;
 }
 
@@ -263,14 +263,6 @@ transition: .6s;
 }
 
 @media screen and (max-width: 660px){
-  .headlineImageDiv{
-    width:100%;
-  }
-
-  .headlineDescDiv{
-    width:100%;
-  }
-
   .pageInfo{
     display:inline;
   }
@@ -305,6 +297,9 @@ transition: .6s;
     .headlineImage{
     border-radius: 100%;
   }
+  html,body{
+    overflow-x: hidden !important;
+  }
 }
 
 @media screen and (max-width: 850px){
@@ -314,4 +309,8 @@ transition: .6s;
     width:100vw;
     border-right: 0px;
   }
+  html,body{
+    overflow-x: visible !important;
+  }
+}
 }
