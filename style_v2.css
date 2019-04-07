@@ -98,7 +98,7 @@ p{
 }
 
 #homeHeader{
-  padding-left:2px;
+  padding-left:20px;
   padding-right: 2px;
 }
 
@@ -252,9 +252,12 @@ transition: .6s;
 }
 
 .home-icon{
-  font-size: 7em;
+  font-size: 6em;
   background-color: #7EDAD4;
   padding:10%;
+}
+
+#codeIcon, #musicIcon{
 }
 
 .home-icon:hover{
@@ -263,6 +266,14 @@ transition: .6s;
 }
 
 @media screen and (max-width: 660px){
+/*  .headlineImageDiv{
+    width:100%;
+  }
+
+  .headlineDescDiv{
+    width:100%;
+  }*/
+
   .pageInfo{
     display:inline;
   }
@@ -274,11 +285,9 @@ transition: .6s;
   .speech-bubble {
   position: relative;
   border-radius: .4em;
-  margin-right: 15px;
   }
 
   .speech-bubble:after {
-  content: '';
   position: absolute;
   top: 0;
   left: 50%;
@@ -288,7 +297,7 @@ transition: .6s;
   border-bottom-color: #00aabb;
   border-top: 0;
   border-left: 0;
-  margin-left: -10px;
+ /* margin-left: -10px;*/
   margin-top: -20px;
   }
 }
@@ -306,7 +315,6 @@ transition: .6s;
   .musicItem, .codeItem, .musicItem:last-child, .codeItem:last-child {
     display:flex;
     justify-content: space-between;
-    width:100vw;
     border-right: 0px;
   }
   html,body{
