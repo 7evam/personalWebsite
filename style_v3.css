@@ -69,11 +69,11 @@ color:white;
   height:50px;
   background-color: #122C34;
   color: white;
-  font-family: 'Londrina Solid', cursive !important;
+  font-family: 'Voces', sans-serif;
 }
 
 .footer{
-  height:35px;
+  height:50px;
 }
 
 /*for colors checkout #21 at https://blog.visme.co/website-color-schemes/*/
@@ -91,10 +91,23 @@ p{
 }
 
 .footerItem{
-  padding-right: 8%;
-  padding-left: 8%;
-  font-size: 1.3em;
+  padding-right: 4%;
+  padding-left: 4%;
+  font-size: 1.1em;
   padding-top: 2px;
+  text-align: center;
+
+}
+
+.linkText{
+  font-family: 'Voces', sans-serif;
+  font-size: 0.7em;
+  text-align: center;
+  font-weight: 400;
+}
+
+.footerItem:hover:not(.fas){
+  font-weight: 400;
 }
 
 #homeHeader{
@@ -315,6 +328,7 @@ transition: .6s;
   .musicItem, .codeItem, .musicItem:last-child, .codeItem:last-child {
     display:flex;
     justify-content: space-between;
+    width:100vw;
     border-right: 0px;
   }
   html,body{
