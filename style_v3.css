@@ -110,10 +110,10 @@ p{
   font-weight: 400;
 }
 
-#homeHeader{
-  padding-left:20px;
-  padding-right: 2px;
-}
+/* #homeHeader{
+  /* padding-left:20px;
+  padding-right: 2px; */
+} */
 
 .header-text{
   font-family: 'Voces', sans-serif;
