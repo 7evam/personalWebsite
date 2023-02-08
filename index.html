@@ -1,203 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138643855-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-138643855-1');
-  </script>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Evan Lane</title>
-  <link rel="icon"
-      type="image/png"
-      href="images/meIcon.png">
-  <!-- Link Swiper's CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.css">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Evan Lane</title>
+    <link rel="icon" type="image/png" href="images/meIcon.png">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Voces|Assistant" rel="stylesheet">
-     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-  <link rel="stylesheet" href="style_v3.css" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" type="text/css">
+  </head>
 
-</head>
-<body>
-<div class="page">
-    <div class='header'>
-      <div class = 'headerItem' id='musicHeader'><p class='header-text'>Music</p></div>
-      <div class = 'headerItem' id='homeHeader'><p class='header-text'>Evan Lane</p></div>
-      <div class = 'headerItem' id='codeHeader'><p class='header-text'>Code</p></div>
-  </div>
-  <div class="page-content">
-  <div class='pageInfo'>
+  <body>
+    <div class="container">
+      <div class='header'>
 
-    <div class='headlineImageDiv'>
-      <img src="images/headshotEKL.jpeg" alt="Evan Lane at UVL" class='headlineImage'>
-    </div>
-    <div class='headlineDescDiv'>
-      <div class='speech-bubble'>
-      <div class='headline' id='headline'>
-
-        <p class='highlight'>Hello!</p>
-        <p>I'm Evan and I'm a developer, musician, fun guy, and <span id='mushroom-style'>fungi enthusiast</span>.</p>
-          <p>You can check out what I've built if you slide over to the right. I've also included some of the musical projects I've been a part of on the left, if you're curious.</p>
-          <p>You can view my resume <a href="./EvanLaneResume.pdf">here</a>. Do you have a project in mind? Let's chat!</p>
-          </div>
+        <div class='headerItem' id='homeHeader'>
+          <p class='header-text'>Evan Lane</p>
         </div>
-    </div>
-  </div>
-<div class="swiper-container">
-    <!-- Additional required wrapper -->
-    <div class="swiper-wrapper">
-        <!-- Slides -->
+        <div class='headerItem' id='codeHeader'>
+          <p class='header-text'>Code</p>
+        </div>
+        <div class='headerItem' id='musicHeader'>
+            <p class='header-text'>Music</p>
+        </div>
+      </div>
+
+      <div class="swiper swiper-container">
+        <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <div class='musicItems'>
-          <div class='musicItem'>
-            <div class='musicDesc'>
-              <h2>Mango City - Valipala</h2>
-              <p>Genre: Progressive Soul</p>
-              <p>Most recent EP from my band Valipala. I performed, produced, arranged songs on this release.</p>
-              <a class= 'link' target="_blank" href="https://valipala.bandcamp.com/album/mango-city"><i class="fas fa-play-circle"></i>Check it out!</a>
-            </div>
-            <div class='musicPic'><img src="images/mangoCity.jpg" alt="Valipala Mango City" class='demoImage'></div>
-          </div>
-          <div class='musicItem'>
-            <div class='musicDesc'>
-            <h2>Cool - Felix Jaehn Feat. Marc E. Bassy & Gucci Mane</h2>
-            <p>Genre: Pop</p>
-              <p>I recorded trumpet for this song in a big studio and it made it to the Billboard Top 40 Dance/Electronic charts.</p>
-              <a class= 'link' target="_blank" href="https://www.youtube.com/watch?v=HFdf_5ZlHm0"><i class="fas fa-play-circle"> </i>Check it out!</a>
-            </div>
-            <div class='musicPic'><img src="images/coolFelixJaehn.png" alt="Cool Felix Jaehn Gucci Mane Evan Lane" class='demoImage'></div>
-          </div>
-          <div class='musicItem'>
-            <div class='musicDesc'>
-              <h2>Open Wide - Duendita</h2>
-              <p>Genre: R&B/Soul</p>
-              <p>After getting recommended by a friend, I recorded trumpet for this song with Duendita in her studio.</p>
-              <a class= 'link' target="_blank" href="https://soundcloud.com/duendita/open"><i class="fas fa-play-circle"> </i>Check it out!</a>
-            </div>
-            <div class='musicPic'><img src="images/openWideDuendita.jpg" alt="Duendita Open Wide" class='demoImage'></div>
-          </div>
-          <div class='musicItem'>
-            <div class='musicDesc'>
-              <h2>Time Is Slow - Essonite</h2>
-              <p>Genre: Electro-soul</p>
-              <p>I met Martin from Essonite at a music festival we were playing at and we clicked right away! I recorded trumpet for this track remotely in my home studio.</p>
-              <a class= 'link' target="_blank" href="https://soundcloud.com/essonite/time-is-slow"><i class="fas fa-play-circle"> </i>Check it out!</a></div>
-            <div class='musicPic'><img src="images/throughTheHourglass.jpg" alt="Essonite Through the Hourglass" class='demoImage'></div>
-          </div>
-          <div class='musicItem'>
-            <div class='musicDesc'>
-            <h2>Stella by Starlight</h2>
-            <p>Genre: Jazz</p>
-            <p>I recorded this jazz standard duo with Jonathan Toscano on bass.</p>
-            <a class= 'link' target="_blank" href="./stella.html"><i class="fas fa-play-circle"> </i>Check it out!</a>
-            </div>
-            <div class='musicPic'><img src="images/EvanLaneJazz.png" alt="Evan Lane playing jazz" class='demoImage'></div>
-          </div>
-          <div class='musicItem'>
-            <div class='musicDesc'>
-            <h2>Man on The Moon - Conor James</h2>
-            <p>Genre: Pop</p>
-            <p>Everyone in NYC is talented, even my neighbor! I recorded trumpet for this song in my home studio.</p>
-            <a class= 'link' target="_blank" href="https://www.youtube.com/watch?v=qieBg42CH_Y"><i class="fas fa-play-circle"> </i>Check it out!</a>
-            </div>
-            <div class='musicPic'><img src="images/manOnTheMoon.jpg" alt="Conor James Man On the Moon" class='demoImage'></div>
-          </div>
-          <div class='musicItem'>
-            <div class='musicDesc'>
-              <h2>People Synesthesia - Panther Hollow</h2>
-              <p>Genre: Indie-rock</p>
-              <p>I've been a member of Panther Hollow since 2016 as a trumpet player and keyboard player. This is our latest EP.</p>
-            <a class= 'link' target="_blank" href="https://pantherhollow.bandcamp.com/releases"><i class="fas fa-play-circle"> </i>Check it out!</a>
-          </div>
-            <div class='musicPic'><img src="images/peopleSynesthesia.jpg" alt="Panther Hollow People Synesthesia" class='demoImage'></div>
-          </div>
-         <div class='musicItem'>
-            <div class='musicDesc'>
-              <h2>NYC Funk Soul & Beyond</h2>
-              <p>This is a playlist I maintain of my favorite funk/soul artists all around NYC. There's lots of talented friends in here!</p>
-              <a class= 'link' target="_blank" href="https://open.spotify.com/user/1218938617/playlist/4ndVmh2zLoM8Hoiqe7laMo?si=1WVMAJyKRt-0GKp0CSEjuw"><i class="fas fa-play-circle"> </i>Check it out!</a>
-            </div>
-            <div class='musicPic'><img src="images/nycFunkSoul.png" alt="NYC Funk Soul and Beyond" class='demoImage'></div>
-          </div>
+      <div class='landing'>
+        <div class="leftPaddingLanding"></div>
+        <div class="landingContent">
+        <div class='landingImg'>
+          <img src="images/headshotEKL.jpeg" alt="evan lane headshot" class='headlineImage'>
         </div>
+        <div class='homepageBlurb'>
+          <p class='blurbLarge'>I'm Evan.</p>
+          <p class='blurbLarge'>I build websites and web applications.</p>
+          <p>I've built front end experiences with React, APIs and coordinated microservices on the back end, and cloud architecture <span class="nowrap">to serve it all up.</span></p>
+          <p>I'm also a musician who's recorded, performed and toured with many groups and an <span class="nowrap">all around <a id="fungi">fun guy</a>.</span></p>
+          <div class="icons">
+            <a class="iconLink" target="_blank" href="https://www.linkedin.com/in/evan-k-lane/"><i class="fab fa-linkedin"></i><br>LinkedIn</a>
+            <a class="iconLink" target="_blank" href="mailto:evan@evanklane.com"><i class="fas fa-at"></i><br>Email</a>
+            <a class="iconLink" target="_blank" href="./EvanLaneResume2023.pdf"><i class="fas fa-file-alt"></i><br>Resume</a>
+          </div>
+          <!-- <p>Go ahead and check out my <a target="_blank" href="images/Evan_Lane_Resume_2023.pdf">resume</a>, view my <a target="_blank" href="https://www.linkedin.com/in/evan-k-lane">LinkedIn</a> <span class="nowrap">or email me</span></p> -->
         </div>
-        <div class="swiper-slide">
-<div class='homePageSplit'>
-<div class='music' id='musicIcon'><h3>Music</h3><i class="fas fa-music home-icon"></i></div>
-<div class='code' id='codeIcon'> <h3>Code</h3><i class="fas fa-code home-icon"></i></div>
-</div>
-</div>
-<div class="swiper-slide">
-          <div class='codeItems'>
-                      <div class='codeItem'>
+    </div>
+        <div class="arrow"><img height="50px" src="images/arrowRight.png"/></div>
+      </div>
+    </div>
 
-            <div class='codeDesc'>
-              <h2>Live Auction</h2>
-              <p>A dynamic React application to facilitate bidding between multiple clients in real time. Open up two browser windows and bid against yourself to test!</p>
-              <p> Technologies used: Node, Express, PSQL, Sequelize, React, Webpack and Socket.io</p>
-              <a class='link' target="_blank" href="https://peaceful-headland-93321.herokuapp.com/">
-                 <i class="fas fa-play-circle"></i>Try it out!</a><br/><br/>
-                <a class='link' target="_blank" href="https://github.com/7evam/liveAuction">
-                 <i class="fas fa-play-circle"></i>See on Github</a><br/><br/>
-                <a class='link' target="_blank" href="https://medium.com/@7evam/lets-get-methodical-5572560f068b">
-                  <i class="fas fa-newspaper"></i>Read my related blog post</a>
-            </div>
-            <div class='codePic'><img src="images/liveAuctionScreenshot.png" alt="Evan Lane live auction react application" class='demoImage'></div>
-          </div>
-          <div class='codeItem'>
+    <div class="swiper-slide">
+      <div class='codeItems'>
+        <div class='codeItem'>
+        <div class='codePic'><img src="images/MSFALogo.png" alt="MSF Logo" class='demoImage'></div>
           <div class='codeDesc'>
-            <h2>Concert Planner</h2>
-            <p>Made this application as I explored using Firebase as a database and for hosting. Users can create their own account, post about concerts, and see when other users post in real time.</p>
-            <p>Technologies used: Firebase, React, Redux</p>
-            <a class='link' target="_blank" href="https://netninja-planner.firebaseapp.com/"><i class="fas fa-play-circle"></i>Try it out!</a><br/><br/><a class='link' target="_blank" href="https://github.com/7evam/react-redux-firebase-planner"><i class="fas fa-play-circle"></i>See on Github</a>
+            <h2><a class='itemLink' target="_blank" href="https://msfa.netlify.com">MSF</a></h2>
+            <p>Multi Sport Fantasy is an original fantasy sports concept I developed with some friends where participants draft a team of sports teams across the 4 major leagues instead of players from one league. This web application fully facilitates the concept with user accounts, roster management, free agency, trades and daily updating standings.</p>
           </div>
-            <div class='codePic'><img src="images/concertPlanner.jpg" alt="concertPlanner" class='demoImage'></div>
-          </div>
-          <div class='codeItem'>
-            <div class='codeDesc'>
-              <h2>Trumpet Hero</h2>
-              <p>Trumpet version of Guitar Hero. See how many points you can score and learn how to play a song on trumpet!</p>
-              <p>Technologies used: HTML,CSS and JavaScript</p>
-              <a class='link' target="_blank" href="https://pages.git.generalassemb.ly/7evam/tptHero/"><i class="fas fa-play-circle"></i>Try it out!</a><br/><br/><a class='link' target="_blank" href="https://github.com/7evam/trumpet-hero"><i class="fas fa-play-circle"></i>See on Github</a>
-            </div>
-            <div class='codePic'><img src="images/tptHeroLogo.png" alt="Evan Lane Trumpet Hero game screenshot" class='demoImage'></div>
-          </div>
-          <div class='codeItem'>
-            <div class='codeDesc'>
-              <h2>NYC Soundcheck</h2>
-              <p>A dynamic web application that allows user to create, read, edit and delete from a database of artists in NYC.</p>
-              <p>Technologies used: Node, Express, PSQL, Sequelize, JSX and Bulma</p>
-            <a class='link' target="_blank" href="https://nyc-soundcheck.herokuapp.com/"><i class="fas fa-play-circle"></i>Try it out!</a><br/><br/><a class='link' target="_blank" href="https://github.com/7evam/NYCsoundcheck"><i class="fas fa-play-circle"></i>See on Github</a>
-          </div>
-            <div class='codePic'><img src="images/nycSoundcheckScreenshot.jpg" alt="Evan Lane NYC Soundcheck Screenshot" class='demoImage'></div>
-          </div>
-          <div class='codeItem'>
+        </div>
+        <div class='codeItem'>
+            <div class='codePic'><img src="images/tptHeroLogo.png" alt="Evan Lane Trumpet Hero logo" class='demoImage'></div>
           <div class='codeDesc'>
-            <h2>Cafe Select</h2>
-            <p>Managed team of developers and worked with UX/UI designers to create mobile-first website for a local restaurant.</p>
-            <p>Technologies used: HTML, CSS, JavaScript, GitHub, Zeplin, Trello and Sketch</p>
-            <a class='link' target="_blank" href="https://pages.git.generalassemb.ly/cafeSelect/cafe2/"><i class="fas fa-play-circle"></i>Try it out!</a><br/><br/><a class='link' target="_blank" href="https://git.generalassemb.ly/cafeSelect/cafe2"><i class="fas fa-play-circle"></i>See on Github</a>
+            <h2><a class='itemLink' target="_blank" href="https://pages.git.generalassemb.ly/7evam/tptHero/">Trumpet Hero</a></h2>
+            <p>Trumpet version of Guitar Hero. See how many points you can score and learn how to play a song on trumpet!</p>
           </div>
-          <div class='codePic'><img src="images/cafeSelectHome.png" alt="Cafe Select website redeisgn" class='demoImage'></div>
+        </div>
+        <div class='codeItem'>
+            <div class='codePic'><img src="images/pieMadnessLogo.png" alt="Pie Madness Logo" class='demoImage'></div>
+
+          <div class='codeDesc'>
+            <h2><a class='itemLink' target="_blank" href="https://piemadness.com">Pie Madness</a></h2>
+            <p>A forum for pie fans to get updates and post their thoughts about the annual pie flavor bracket I host every year. Pie fans can make posts, comment on posts and receive notifications all with a password-less authentication system.</p>
           </div>
         </div>
       </div>
     </div>
-  </div>
+    <div class="swiper-slide">
+        <div class='musicItems'>
+
+          <div class='musicItem'>
+            <div class='musicDesc'>
+              <h2><a class="itemLink" target="_blank" href="https://valipala.bandcamp.com/album/mango-city">Mango City - Valipala</a></h2>
+              <p>Valipala has been my primary creative outlet since 2012. This is our most recent album.</p>
+            </div>
+            <div class='musicPic'><img src="images/mangocity.jpeg" alt="Valipala Mango City" class='demoImage'></div>
+          </div>
+
+          <div class='musicItem'>
+            <div class='musicDesc'>
+              <h2><a class="itemLink" target="_blank" href="https://www.thebandmelt.com/">Melt</a></h2>
+              <p>Since 2021 I've toured all over the US and Canada with Melt and have played over 50 live shows with them.</p>
+            </div>
+            <div class='musicPic'><img style="width: 200px; height: 200px; object-fit: cover;" src="images/meltLive.jpeg" alt="Melt the band" class='demoImage'></div>
+          </div>
+
+
+          <div class='musicItem'>
+            <div class='musicDesc'>
+              <h2><a class='itemLink' target="_blank" href="https://www.honeytrapnyc.com/">Honeytrap</a></h2>
+              <p>I've been a part of Honeytrap since 2018. The band served as the house band every week for the R&B/Hip-Hop jam session at Arlene's Grocery in New York City and released some music along the way too.</p>
+            </div>
+            <div class='musicPic'><img src="images/honeytrapPic.jpeg" alt="Essonite Through the Hourglass" class='demoImage'></div>
+          </div>
+
+          <div class='musicItem'>
+            <div class='musicDesc'>
+              <h2><a class="itemLink" target="_blank" href="https://www.youtube.com/watch?v=HFdf_5ZlHm0">Cool - Felix Jaehn Feat. Marc E. Bassy & Gucci Mane</a></h2>
+              <p>I recorded for this song in a big studio in NYC and didn't know it had been released until I heard myself in a cafe in Europe.</p>
+            </div>
+            <div class='musicPic'><img src="images/coolFelixJaehn.png" alt="Cool Felix Jaehn Gucci Mane Evan Lane" class='demoImage'></div>
+          </div>
+          
+          <div class='musicItem'>
+            <div class='musicDesc'>
+              <h2><a class="itemLink" target="_blank" href="https://soundcloud.com/duendita/open">Open Wide - Duendita</a></h2>
+              <p>I've been featured as a session musician many times and this song I recorded in 2016 with Duendita is one of my favorites I've been a part of.</p>
+            </div>
+            <div class='musicPic'><img src="images/openWideDuendita.jpeg" alt="Duendita Open Wide" class='demoImage'></div>
+          </div>
+
+          <div class='musicItem'>
+            <div class='musicDesc'>
+              <h2><a class="itemLink" target="_blank" href="https://open.spotify.com/playlist/4ndVmh2zLoM8Hoiqe7laMo?si=50763a50c76143f1">NYC Funk Soul & Beyond</a></h2>
+              <p>A playlist I maintained from 2017-2019 of my favorite funk/soul artists from the countless live shows I went to all around NYC.</p>
+            </div>
+            <div class='musicPic'><img src="images/nycFunkSoul.png" alt="NYC Funk Soul and Beyond" class='demoImage'></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    </div>
 </div>
-   <div class='footer'>
-    <!-- <p>LinkedIn</p> -->
-    <a class= 'footerItem' target="_blank" href="https://www.linkedin.com/in/evan-k-lane/"><i class="fab fa-linkedin footerItem"><span class='linkText'><br>LinkedIn</span></i></a>
-    <a class= 'footerItem' target="_blank" href="https://github.com/7evam"> <i class="fab fa-github footerItem"><span class='linkText'><br>GitHub</span></i></a>
-    <a class= 'footerItem' target="_blank" href="mailto:evan@evanklane.com"><i class="fas fa-at footerItem"><span class='linkText'><br>Email</span></i></a>
-    <a class= 'footerItem' target="_blank" href="./EvanLaneResume.pdf"><i class="far fa-file-alt footerItem"><span class='linkText'><br>Resume</span></i></a>
-  </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.js"></script>
-<script src='script.js'></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
 </html>

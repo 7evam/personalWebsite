@@ -1,0 +1,238 @@
+/* global */
+
+html, body {
+  min-height: 100vh;
+  min-width:100vw;
+  margin: 0;
+  background: rgb(255,255,255);
+  background: linear-gradient(rgba(255,255,255,1), rgb(181, 201, 226));  
+  font-family: 'Voces', sans-serif;
+}
+
+.homepageBlurb p{
+  margin:5px;
+}
+
+a{
+  color: black;
+  text-decoration: underline;
+}
+
+
+.itemLink:hover{
+  text-decoration: underline;
+}
+
+.itemLink{
+  color:#484848;
+}
+
+
+a:hover{
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.nowrap{
+  white-space: nowrap;
+}
+
+/* header */
+
+.header{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height:50px;
+  background-color: #122C34;
+  color: white;
+  width: 100vw;
+}
+
+.headerItem{
+  padding-right: 5%;
+  padding-left: 5%;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  width: 100px;
+  font-weight: 600;
+}
+
+.header-text:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* landing */
+
+.landing{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.arrow{
+  margin-right: 30px;
+  animation-name: arrow;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.arrow:hover{
+  cursor: pointer;
+}
+
+.leftPaddingLanding{
+  margin-left: 30px;
+  width: 50px;
+}
+
+.landingContent{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 18px;
+  text-align: center;
+}
+
+.blurbLarge{
+  font-size: 32px;
+}
+
+.homepageBlurb{
+  margin: 0px 50px;
+  max-width: 55%;
+}
+
+.headlineImage{
+  border-radius: 100%;
+  max-width:200px;
+  max-height:200px;
+  margin-top: 15px;
+}
+
+.icons{
+  margin-top:20px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+.iconLink{
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.iconLink:hover{
+  color: #FF6B6B;
+}
+
+@keyframes arrow {
+  0% {transform: translateX(0px)}
+  10% {transform: translateX(0px)}
+  100% {transform: translateX(20px)}
+}
+
+/* code and music items */
+
+.music, .code{
+  width:50%;
+  text-align: center;
+position: relative;
+padding-bottom: 5%;
+}
+
+.musicItem{
+  display:flex;
+  width:50vw;
+  color: #484848;
+  justify-content: space-between;
+}
+
+.codeItem{
+  display:flex;
+  width:80vw;
+  color: #484848;
+}
+
+/* .musicItem:hover, .codeItem:hover{
+  background-color: #E1E8E1;
+  transition: .6s;
+  } */
+
+  .codeItems{
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+  }
+  
+  .musicItems{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .musicPic, .codePic{
+    padding-right: 8%;
+    padding-top: 1%;
+    padding-bottom:1%;
+  }
+
+
+
+
+
+
+/*for colors checkout #21 at https://blog.visme.co/website-color-schemes/*/
+
+.musicDesc a, .codeDesc a{
+color:black;
+font-size: 1.1em;
+text-decoration: none;
+font-weight: 600;
+}
+
+.musicDesc{
+padding-left: 8%;
+padding-right: 20px;
+}
+
+/* .demoImage{
+min-width: 180px;
+width:150px;
+padding:10px;
+} */
+
+.demoImage{
+  width: 200px;
+}
+
+
+/* mobile specifics */
+
+@media screen and (max-width: 450px){
+  .headlineImage{
+  border-radius: 100%;
+}
+html,body{
+  overflow-x: hidden;
+}
+}
+
+@media screen and (max-width: 850px){
+.musicItem, .codeItem, .musicItem:last-child, .codeItem:last-child {
+  display:flex;
+  justify-content: space-between;
+  width:95vw;
+  border-right: 0px;
+}
+html,body{
+  overflow-x: visible;
+}
+.homepageBlurb{
+  max-width: 80%;
+}
+
+}
