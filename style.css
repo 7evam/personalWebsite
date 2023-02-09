@@ -1,8 +1,8 @@
 /* global */
 
 html, body {
-  min-height: 100vh;
   min-width:100vw;
+  min-height: 100vh;
   margin: 0;
   background: rgb(255,255,255);
   background: linear-gradient(rgba(255,255,255,1), rgb(181, 201, 226));  
@@ -62,6 +62,10 @@ a:hover{
 .header-text:hover{
   text-decoration: underline;
   cursor: pointer;
+}
+
+.header-text{
+  white-space: nowrap;
 }
 
 /* landing */
@@ -147,10 +151,23 @@ padding-bottom: 5%;
 
 .musicItem{
   display:flex;
+  flex-direction: column;
   width:50vw;
   color: #484848;
   justify-content: space-between;
 }
+
+.musicItem h2{
+  padding-left: 20px;
+}
+
+.musicDesc{
+  padding-left: 20px;
+}
+
+/* .musicItem p{
+  float: left;
+} */
 
 .codeItem{
   display:flex;
@@ -187,52 +204,122 @@ padding-bottom: 5%;
 
 /*for colors checkout #21 at https://blog.visme.co/website-color-schemes/*/
 
-.musicDesc a, .codeDesc a{
+.musicItem a, .codeDesc a{
 color:black;
 font-size: 1.1em;
 text-decoration: none;
 font-weight: 600;
 }
 
-.musicDesc{
-padding-left: 8%;
-padding-right: 20px;
-}
-
-/* .demoImage{
-min-width: 180px;
-width:150px;
-padding:10px;
+/* .musicItem{
+  display: flex;
+  width: 50vw;
+  color: #484848;
+  justify-content: space-between;
 } */
 
 .demoImage{
+  height: 200px;
   width: 200px;
+}
+
+.musicItems .demoImage{
+  float: right;
+  padding-left: 20px;
 }
 
 
 /* mobile specifics */
 
-@media screen and (max-width: 450px){
+/* @media screen and (max-width: 450px){
   .headlineImage{
   border-radius: 100%;
 }
 html,body{
   overflow-x: hidden;
 }
-}
+} */
 
 @media screen and (max-width: 850px){
-.musicItem, .codeItem, .musicItem:last-child, .codeItem:last-child {
+/* .musicItem, .codeItem, .musicItem:last-child, .codeItem:last-child {
   display:flex;
   justify-content: space-between;
   width:95vw;
   border-right: 0px;
+} */
+.musicItems, .codeItems{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.musicPic, .codePic{
+  margin-top: 15px;
+  padding: 0;
+}
+
+.musicItem, .codeItem{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 html,body{
   overflow-x: visible;
 }
-.homepageBlurb{
-  max-width: 80%;
+
+.headerItem{
+  font-size: 16px;
+  font-weight: 400;
 }
 
+.landing{
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow{
+  padding-top: 10px;
+}
+
+.homepageBlurb{
+  max-width: 100%;
+  font-size: 16px;
+}
+
+.blurbLarge{
+  font-size: 24px;
+}
+
+.musicItem{
+  width: 100%;
+}
+
+.musicDesc{
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  padding-left: 20px;
+  width: 100%;
+}
+
+.musicDesc p{
+  padding: 0 20px;
+}
+
+.demoImage{
+  width: 150px;
+  height: 150px;
+}
+
+.musicItems h2{
+  padding-right: 20px;
+}
+
+/* .musicPic{
+  width: 48%;
+} */
 }

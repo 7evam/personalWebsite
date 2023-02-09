@@ -1,4 +1,5 @@
 var mySwiper = new Swiper('.swiper-container', {
+  initialSlide: 0,
   keyboard: {
     enabled: true,
     onlyInViewport: false,
