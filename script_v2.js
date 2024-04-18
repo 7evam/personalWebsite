@@ -1,3 +1,4 @@
+
 var mySwiper = new Swiper('.swiper-container', {
   initialSlide: 0,
   keyboard: {
@@ -17,41 +18,40 @@ const lastIndex = headlineImage.src.lastIndexOf('/')
 const path = headlineImage.src.substr(0, lastIndex)
 var pictureCanChange = true
 
-function handleFungi(){
-  console.log("happening")
-  if(pictureCanChange){
-    headlineImage.src.substr(headlineImage.src.lastIndexOf('/')+1) === 'headshotEKL.jpeg' ?
-    headlineImage.src = path+"/fungiEKL.jpeg" :
-    headlineImage.src = path+"/headshotEKL.jpeg"
+function handleFungi() {
+  if (pictureCanChange) {
+    headlineImage.src.substr(headlineImage.src.lastIndexOf('/') + 1) === 'headshotEKL.jpeg' ?
+      headlineImage.src = path + "/fungiEKL.jpeg" :
+      headlineImage.src = path + "/headshotEKL.jpeg"
     pictureCanChange = false
-    setTimeout(function(){
+    setTimeout(function () {
       pictureCanChange = true
-      headlineImage.src = path+"/headshotEKL.jpeg"
-    },2500)
+      headlineImage.src = path + "/headshotEKL.jpeg"
+    }, 2500)
   }
 }
 
-home.addEventListener("click",function(){mySwiper.slideTo(0)})
-code.addEventListener("click",function(){mySwiper.slideTo(1)})
-music.addEventListener("click",function(){mySwiper.slideTo(2)})
+home.addEventListener("click", function () { mySwiper.slideTo(0) })
+code.addEventListener("click", function () { mySwiper.slideTo(1) })
+music.addEventListener("click", function () { mySwiper.slideTo(2) })
 fungi.addEventListener("click", handleFungi)
-arrow.addEventListener("click", function(){mySwiper.slideTo(1)})
+arrow.addEventListener("click", function () { mySwiper.slideTo(1) })
 
-function updatePage(){
+function updatePage() {
   music.style.color = 'white';
   home.style.color = 'white';
   code.style.color = 'white';
   arrow.style.animationName = 'none';
-  switch(mySwiper.realIndex){
-      case 0:
-          home.style.color = '#FF6B6B'
-          break;
-      case 1:
-          code.style.color = '#FF6B6B'
-          break;
-      case 2:
-          music.style.color = '#FF6B6B'
+  switch (mySwiper.realIndex) {
+    case 0:
+      home.style.color = '#FF6B6B'
+      break;
+    case 1:
+      code.style.color = '#FF6B6B'
+      break;
+    case 2:
+      music.style.color = '#FF6B6B'
   }
 }
 
-mySwiper.on("slideChange",updatePage);
+mySwiper.on("slideChange", updatePage);

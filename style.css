@@ -1,55 +1,56 @@
 /* global */
 
-html, body {
-  min-width:100vw;
+html,
+body {
+  min-width: 100vw;
   min-height: 100vh;
   margin: 0;
-  background: rgb(255,255,255);
-  background: linear-gradient(rgba(255,255,255,1), rgb(181, 201, 226));  
+  background: rgb(255, 255, 255);
+  background: linear-gradient(rgba(255, 255, 255, 1), rgb(181, 201, 226));
   font-family: 'Voces', sans-serif;
 }
 
-.homepageBlurb p{
-  margin:5px;
+.homepageBlurb p {
+  margin: 5px;
 }
 
-a{
+a {
   color: black;
   text-decoration: underline;
 }
 
 
-.itemLink:hover{
+.itemLink:hover {
   text-decoration: underline;
 }
 
-.itemLink{
-  color:#484848;
+.itemLink {
+  color: #484848;
 }
 
 
-a:hover{
+a:hover {
   font-weight: 600;
   cursor: pointer;
 }
 
-.nowrap{
+.nowrap {
   white-space: nowrap;
 }
 
 /* header */
 
-.header{
-  display:flex;
+.header {
+  display: flex;
   justify-content: center;
   align-items: center;
-  height:50px;
+  height: 50px;
   background-color: #122C34;
   color: white;
   width: 100vw;
 }
 
-.headerItem{
+.headerItem {
   padding-right: 5%;
   padding-left: 5%;
   font-size: 20px;
@@ -59,41 +60,41 @@ a:hover{
   font-weight: 600;
 }
 
-.header-text:hover{
+.header-text:hover {
   text-decoration: underline;
   cursor: pointer;
 }
 
-.header-text{
+.header-text {
   white-space: nowrap;
 }
 
 /* landing */
 
-.landing{
+.landing {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
 }
 
-.arrow{
+.arrow {
   margin-right: 30px;
   animation-name: arrow;
   animation-duration: 2s;
   animation-iteration-count: infinite;
 }
 
-.arrow:hover{
+.arrow:hover {
   cursor: pointer;
 }
 
-.leftPaddingLanding{
+.leftPaddingLanding {
   margin-left: 30px;
   width: 50px;
 }
 
-.landingContent{
+.landingContent {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,66 +103,75 @@ a:hover{
   text-align: center;
 }
 
-.blurbLarge{
+.blurbLarge {
   font-size: 32px;
 }
 
-.homepageBlurb{
+.homepageBlurb {
   margin: 0px 50px;
   max-width: 55%;
 }
 
-.headlineImage{
+.headlineImage {
   border-radius: 100%;
-  max-width:200px;
-  max-height:200px;
+  max-width: 200px;
+  max-height: 200px;
   margin-top: 15px;
 }
 
-.icons{
-  margin-top:20px;
+.icons {
+  margin-top: 20px;
   display: flex;
   justify-content: space-around;
   flex-direction: row;
 }
 
-.iconLink{
+.iconLink {
   font-weight: 800;
   text-decoration: none;
 }
 
-.iconLink:hover{
+.iconLink:hover {
   color: #FF6B6B;
 }
 
 @keyframes arrow {
-  0% {transform: translateX(0px)}
-  10% {transform: translateX(0px)}
-  100% {transform: translateX(20px)}
+  0% {
+    transform: translateX(0px)
+  }
+
+  10% {
+    transform: translateX(0px)
+  }
+
+  100% {
+    transform: translateX(20px)
+  }
 }
 
 /* code and music items */
 
-.music, .code{
-  width:50%;
+.music,
+.code {
+  width: 50%;
   text-align: center;
-position: relative;
-padding-bottom: 5%;
+  position: relative;
+  padding-bottom: 5%;
 }
 
-.musicItem{
-  display:flex;
+.musicItem {
+  display: flex;
   flex-direction: column;
-  width:50vw;
+  width: 50vw;
   color: #484848;
   justify-content: space-between;
 }
 
-.musicItem h2{
+.musicItem h2 {
   padding-left: 20px;
 }
 
-.musicDesc{
+.musicDesc {
   padding-left: 20px;
 }
 
@@ -169,9 +179,9 @@ padding-bottom: 5%;
   float: left;
 } */
 
-.codeItem{
-  display:flex;
-  width:80vw;
+.codeItem {
+  display: flex;
+  width: 80vw;
   color: #484848;
 }
 
@@ -180,22 +190,23 @@ padding-bottom: 5%;
   transition: .6s;
   } */
 
-  .codeItems{
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-  }
-  
-  .musicItems{
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .musicPic, .codePic{
-    padding-right: 8%;
-    padding-top: 1%;
-    padding-bottom:1%;
-  }
+.codeItems {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.musicItems {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.musicPic,
+.codePic {
+  padding-right: 8%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
 
 
 
@@ -204,11 +215,12 @@ padding-bottom: 5%;
 
 /*for colors checkout #21 at https://blog.visme.co/website-color-schemes/*/
 
-.musicItem a, .codeDesc a{
-color:black;
-font-size: 1.1em;
-text-decoration: none;
-font-weight: 600;
+.musicItem a,
+.codeDesc a {
+  color: black;
+  font-size: 1.1em;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 /* .musicItem{
@@ -218,12 +230,12 @@ font-weight: 600;
   justify-content: space-between;
 } */
 
-.demoImage{
+.demoImage {
   height: 200px;
   width: 200px;
 }
 
-.musicItems .demoImage{
+.musicItems .demoImage {
   float: right;
   padding-left: 20px;
 }
@@ -240,86 +252,91 @@ html,body{
 }
 } */
 
-@media screen and (max-width: 850px){
-/* .musicItem, .codeItem, .musicItem:last-child, .codeItem:last-child {
+@media screen and (max-width: 850px) {
+
+  /* .musicItem, .codeItem, .musicItem:last-child, .codeItem:last-child {
   display:flex;
   justify-content: space-between;
   width:95vw;
   border-right: 0px;
 } */
-.musicItems, .codeItems{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  .musicItems,
+  .codeItems {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.musicPic, .codePic{
-  margin-top: 15px;
-  padding: 0;
-}
+  .musicPic,
+  .codePic {
+    margin-top: 15px;
+    padding: 0;
+  }
 
-.musicItem, .codeItem{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+  .musicItem,
+  .codeItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 
-html,body{
-  overflow-x: visible;
-}
+  html,
+  body {
+    overflow-x: visible;
+  }
 
-.headerItem{
-  font-size: 16px;
-  font-weight: 400;
-}
+  .headerItem {
+    font-size: 16px;
+    font-weight: 400;
+  }
 
-.landing{
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+  .landing {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-.arrow{
-  padding-top: 10px;
-}
+  .arrow {
+    padding-top: 10px;
+  }
 
-.homepageBlurb{
-  max-width: 100%;
-  font-size: 16px;
-}
+  .homepageBlurb {
+    max-width: 100%;
+    font-size: 16px;
+  }
 
-.blurbLarge{
-  font-size: 24px;
-}
+  .blurbLarge {
+    font-size: 24px;
+  }
 
-.musicItem{
-  width: 100%;
-}
+  .musicItem {
+    width: 100%;
+  }
 
-.musicDesc{
-  display: flex;
-  flex-direction: row;
-  padding: 0;
-  padding-left: 20px;
-  width: 100%;
-}
+  .musicDesc {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    padding-left: 20px;
+    width: 100%;
+  }
 
-.musicDesc p{
-  padding: 0 20px;
-}
+  .musicDesc p {
+    padding: 0 20px;
+  }
 
-.demoImage{
-  width: 150px;
-  height: 150px;
-}
+  .demoImage {
+    width: 150px;
+    height: 150px;
+  }
 
-.musicItems h2{
-  padding-right: 20px;
-}
+  .musicItems h2 {
+    padding-right: 20px;
+  }
 
-/* .musicPic{
+  /* .musicPic{
   width: 48%;
 } */
 }
