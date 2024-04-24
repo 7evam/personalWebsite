@@ -28,6 +28,10 @@ a {
   color: #484848;
 }
 
+.inlineLink:hover {
+  text-decoration: underline;
+}
+
 
 a:hover {
   font-weight: 600;
