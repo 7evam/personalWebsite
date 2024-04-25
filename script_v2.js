@@ -8,11 +8,12 @@ var mySwiper = new Swiper('.swiper-container', {
   // fix for extra space below swiper
   on: {
     init: function () {
-      var initialSlide = this.slides[this.activeIndex];
+      const allSlides = document.querySelectorAll('.swiper-slide');
+      allSlides.forEach(slide => slide.style.height = '0');
+      const initialSlide = this.slides[this.activeIndex];
       initialSlide.style.height = '100%'
     },
     slideChange: function () {
-      // reset all slide heights to 0
       const allSlides = document.querySelectorAll('.swiper-slide');
       allSlides.forEach(slide => slide.style.height = '0');
       const currentSlide = this.slides[this.activeIndex];
