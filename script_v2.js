@@ -4,6 +4,20 @@ var mySwiper = new Swiper('.swiper-container', {
   keyboard: {
     enabled: true,
     onlyInViewport: false,
+  },
+  // fix for extra space below swiper
+  on: {
+    init: function () {
+      var initialSlide = this.slides[this.activeIndex];
+      initialSlide.style.height = '100%'
+    },
+    slideChange: function () {
+      // reset all slide heights to 0
+      const allSlides = document.querySelectorAll('.swiper-slide');
+      allSlides.forEach(slide => slide.style.height = '0');
+      const currentSlide = this.slides[this.activeIndex];
+      currentSlide.style.height = '100%'
+    }
   }
 });
 
