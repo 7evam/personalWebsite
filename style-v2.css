@@ -283,7 +283,8 @@ html,body{
   border-right: 0px;
 } */
   .musicItems,
-  .codeItems {
+  .codeItems,
+  .blogItems {
     display: flex;
     flex-direction: column;
     align-items: center;
