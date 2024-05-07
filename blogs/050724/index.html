@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrapping Microservices with AWS - Part 1</title>
+    <link rel="icon" type="image/png" href="images/meIcon.png">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Voces|Assistant" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" href="../blog.css" type="text/css">
+</head>
+
+<body>
+    <div class="blog-container">
+        <div class="back-container">
+            <a href="https://www.evanklane.com">← Back to homepage</a>
+        </div>
+        <h1>Bootstrapping Microservices with AWS - Part 1</h1>
+
+        <p>I recently completed a batch at the <a target="_blank" href="https://www.recurse.com">Recurse Center</a> and
+            got
+            to go on a self-directed learning journey through so many topics! During my second week I quickly made some
+            friends who suggested that I join their Bootstrapping
+            Microservices group and I was excited to join since I had always wanted to have a hands on dive into
+            understanding microservice
+            architecture with Docker and Kubernetes. During our group meetings we worked through the <a target="_blank"
+                href="https://www.manning.com/books/bootstrapping-microservices-with-docker-kubernetes-and-terraform">Bootstrapping
+                Microservices</a> textbook by Ashley Davis together.</p>
+
+        <div class="image-container">
+            <img height="400px" src="images/bootstrapping.png" />
+            <p class="image-caption">The Bootstrapping Microservices textbook</p>
+        </div>
+
+        <p>The textbook uses Azure as a cloud provider but since I had experience with AWS I wanted to challenge myself
+            to
+            deploy all of the example code using AWS as my cloud provider. It was a fun experience tweaking the
+            processes
+            and the code for AWS and I bet there’s others out there who’d like to go through the book with AWS so I
+            thought it'd be nice to write a
+            guide for how I completed all the chapters in the book using AWS as my cloud provider.</p>
+
+        <p>This guide will be organized according to the chapters in the book. I’ll only write entries for when the
+            instructions in the book differ from what you need to do with AWS. The first two chapters just cover some
+            theory
+            and running the app locally so I’ll skip those and dive right into chapter 3!</p>
+
+        <p>A couple quick notes before we begin: to simplify the commands, I’m using us-east-2 as my region for
+            everything.
+            Make sure to pick a region and stick with it. If you use a region other than us-east-2, remember to replace
+            us-east-2 with your region for all of your commands.</p>
+
+        <div class="image-container">
+            <img src="images/us-east-2.png" />
+        </div>
+
+        <p>I’ll also be using the CLI which you’ll need to have credentials for. It’s not recommended to generate
+            credentials using your root user. Ideally, you’ll generate temporary credentials but I find that to be a
+            little
+            unwieldy. Instead, I used my root account to create an IAM user with admin permissions. I then created an
+            access
+            key with my new IAM user and copied the secret access key into my password manager. As the console warns
+            you, be
+            careful with these credentials! Never include these credentials in a git repo and be sure to store them
+            somewhere secure.</p>
+
+        <div class="image-container">
+            <img src="images/genAccessKey.png" />
+            <p class="image-caption">Generating an access key in the AWS console</p>
+        </div>
+
+        <h2>Chapter 3</h2>
+
+        <h3>3.9.1 Creating a private container registry</h3>
+
+        <p>At the end of chapter 3 you get to deploy a Docker image to a private container registry. AWS’s private
+            container registry is ECR. There’s two ways you can create a registry, through the console and through the
+            AWS
+            CLI.</p>
+
+        <p>To deploy through the console, first navigate to ECR in the AWS console. You can use the search bar at the
+            top
+            of the console. Once you get to the create repository page, you can fill at the details as shown in the
+            photo.
+            The textbook (using Azure) mentions that your repository name will need to be globally unique, but that’s
+            not
+            true for AWS as they add your account number as a subdomain of your repository URL. I just used
+            “video-streaming” and you can too!</p>
+
+        <div class="image-container">
+            <img height="400px" src="images/createEcr.png" />
+            <p class="image-caption">Creating an ECR repository with the AWS console</p>
+        </div>
+
+        <p>Make sure to check what region you’re in as you deploy too as you’ll need to remember this for later. You can
+            change it by selecting a new region from the dropdown menu in the top right.</p>
+
+        <p>To deploy through the CLI, make sure your aws credentials are set in your .aws directory by running <span
+                class="code">aws
+                configure</span> and run the
+            following
+            command</p>
+
+        <p class="code">aws ecr create-repository --repository-name video-streaming --region us-east-2</p>
+
+        <p>If this command is successful you should get some JSON back that gives you some info about your new
+            repository.
+            Copy your repository URI and save it for later. It should look something like this</p>
+
+        <p class="code">YOUR_ACCOUNT_ID.dkr.ecr.us-east-2.amazonaws.com/video-streaming</p>
+
+        <h3>3.9.2 Pushing our micro service to the registry</h3>
+
+        <p>After you create your registry, it’s time to push! This step must be done using the CLI.</p>
+
+        <p> First, you’ll need to receive an authentication token to authenticate your Docker client. This step is
+            pretty different than as outlined in the book with Azure. You can use the following command to do so, just
+            be sure to
+            use
+            your
+            account ID and region!</p>
+
+        <p class="code">aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin
+            YOUR_ACCOUNT_ID.dkr.ecr.us-east-2.amazonaws.com</p>
+
+        <p>Yes, the username is AWS. That was a little confusing to me at first too. This command should give you the
+            message “Login Succeeded”</p>
+
+        <p>You should have already built your Docker image with the instructions in the textbook. The textbook should
+            help
+            you with tagging your image with the docker tag command. Instead of the Azure registry URL, your registry
+            should
+            just look something like this</p>
+
+        <p class="code">YOUR_ACCOUNT_ID.dkr.ecr.us-east-2.amazonaws.com/video-streaming:latest</p>
+
+        <p>Pushing your image should similarly be easy to figure out with the textbook. Just run</p>
+
+        <p class="code">docker push YOUR_ACCOUNT_ID.dkr.ecr.us-east-2.amazonaws.com/video-streaming:latest</p>
+
+        <p>You now have a private ECR repo with your built Docker image!</p>
+
+        <h3>3.9.4 Deleting your container registry</h3>
+
+        <p>Deleting your registry if you choose to do so is easy! You can simply delete it in the console or use the
+            <span class="code">aws
+                ecr delete-registry —registry-name video-streaming</span> command. But since the main motivation to do
+            so is saving
+            money,
+            let’s talk about pricing.
+        </p>
+
+        <p>The textbook uses Azure in large part because it comes with free credits. AWS does not, but it does come
+            with
+            something similar: the Free Tier. The Free Tier can be a little confusing since there are actually three
+            different offerings within the Free Tier: a 12-month Free Tier, the Always Free tier and short term
+            trials.
+            Luckily, AWS provides a pretty easy to understand <a target="_blank"
+                href="https://aws.amazon.com/free">webpage</a> to figure out what’s free for what service.</p>
+
+        <p>The Free Tier for ECR has a 50GB limit and falls under the 12-month Free Tier. This starts from when your
+            AWS
+            root account was created. If you’re just starting out with AWS and your AWS account is less than a year
+            old,
+            storing images from the book will be free until a year from your account creation as they will easily
+            fall
+            within the 50 GB free tier. But if you’re like me and your AWS account is a year old or older, storing
+            containers on ECR will cost you money. Don’t worry though, as the cost is very low! At 10¢/GB/month and
+            with an
+            approximate container size of 400MB, it will only cost you 4¢ a month to store your container for this
+            chapter.</p>
+
+        <div class="image-container">
+            <img height="400px" src="images/freeTier.png" />
+            <p class="image-caption">Looking up ECR's free tier</p>
+        </div>
+
+        <p>I highly recommend setting up a cost alert while working through this book! It’s saved me on multiple
+            occasions.
+            I set my initial alert to be at $1 per month and to notify me if it ever reaches 80% of that limit.</p>
+
+        <p>That’s all for now! Stay tuned for Chapter 4!</p>
+    </div>
+</body>

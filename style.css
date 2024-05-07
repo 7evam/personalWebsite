@@ -218,6 +218,11 @@ a:hover {
   flex-wrap: wrap;
 }
 
+.blogItems {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
 .musicPic,
 .codePic {
   padding-right: 8%;
