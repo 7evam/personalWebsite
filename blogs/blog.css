@@ -18,6 +18,10 @@ body {
     text-align: center;
 }
 
+img {
+    object-fit: cover;
+}
+
 h1 {
     color: #122C34;
     font-size: 32px;
