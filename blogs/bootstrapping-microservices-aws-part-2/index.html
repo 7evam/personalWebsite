@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrapping Microservices with AWS - Part 1</title>
+    <link rel="icon" type="image/png" href="images/meIcon.png">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Voces|Assistant" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" href="../blog.css" type="text/css">
+</head>
+
+<body>
+    <div class="blog-container">
+        <div class="back-container">
+            <a href="https://www.evanklane.com">← Back to homepage</a>
+        </div>
+        <h1>Bootstrapping Microservices with AWS - Chapter 4</h1>
+        Welcome back to Bootstrapping Microservices with AWS! Here we'll be jumping into chapter 4 where you get to
+        add
+        a file storage microservice to your application.
+
+        <h3>4.4.1 Using Azure Storage</h3>
+
+        <p>Though the title of this section in the book is Using Azure Storage, you probably could have guessed that
+            we'll be using
+            the AWS equivilant, S3! As the book says, you can easily use an S3 bucket instead of Azure storage for file
+            storage. You won't need
+            to
+            create a separate storage account like you do for Azure Storage but you will need to create an S3 bucket.
+            Your
+            S3 bucket will need to have a globally unique name, I recommend something like
+            "bootstrapping-microservices-&lt;random string&gt;". There are 2 ways to do this, through the console or
+            through the CLI.
+        </p>
+
+        <div class="image-container">
+            <img src="images/s3logo.png" />
+        </div>
+
+        <p>To create a bucket with the console, just navigate to S3 and click "Create bucket". Setting permissions can
+            be tricky, but luckily we can use all of the
+            default
+            settings since we'll only be accessing this file as our IAM user. Then, in the bucket, click the upload
+            button to upload the file through the
+            console. I recommend renaming the file to <span class="code">sample_video.mp4</span>after your upload</p>
+
+        <div class="image-container">
+            <img src="images/s3console.png" />
+            <p class="image-caption">Creating an S3 bucket in the AWS console. No I didn't actually create this bucket,
+                but even if I did at least <a target="_blank"
+                    href="https://aws.amazon.com/about-aws/whats-new/2024/05/amazon-s3-no-charge-http-error-codes/">I
+                    won't get charged if you try and access it</a></p>
+        </div>
+
+        <p>To use the CLI, just use the command</p>
+
+        <p class="code">aws s3 mb s3://&lt;bucket-name&gt; --region us-east-2</p>
+
+        <p>Don't forget to update the region to be whichever region you've been using</p>
+
+        <p>And to upload the video just navigate to example-1/videos in the book's <a target="blank"
+                href="https://github.com/bootstrapping-microservices-2nd-edition/chapter-4">companion git repo</a> for
+            this
+            chapter and run the command</p>
+
+        <p class="code">aws s3 cp SampleVideo_1280x720_1mb.mp4 s3://&lt;bucket-name&gt;/sample_video.mp4</p>
+
+        <p>Notice how when I upload it to the bucket I added /sample_video.mp4 at the end of the s3 path. This will
+            rename the file from
+            SampleVideo_1280x720_1mb.mp4 to sample_video.mp4. This will make our lives a little easier later on.
+        </p>
+
+        <h3>4.4.2 Updating the video-streaming micro service</h3>
+
+        <p>So far it's been easy, but here comes the hard part. The book even says that it won't be a simple
+            task to convert the code from using Azure storage to AWS. But I got you covered!</p>
+
+        <div class="image-container">
+            <img alt="A quick note: in case you were thinking of porting the code presented here over to AWS or GCP, converting from the Azure store microservice over to another provider is not a simple task. The APIs to interface with AWS and GCP storage will be quite different to Azure, and you’ll need to read their docs separately to figure out how to use these. Make sure you finish learning about the Azure storage microservice in this chapter before you attempt to convert to any other provider."
+                src="images/bookWarning.png" />
+            <p class="image-caption">A little warning from the book</p>
+        </div>
+
+        <p>As mentioned above, the book comes with a <a target="blank"
+                href="https://github.com/bootstrapping-microservices-2nd-edition/chapter-4">companion GitHub repo</a>.
+            I've forked
+            the repo and
+            updated it with all
+            the code
+            you'll need for AWS. You can <a target="_blank" href="https://github.com/7evam/chapter-4-aws">check out my
+                GitHub repo</a>
+            and stop here if you want to just download the code
+            updated for use with AWS and keep following along with the book. Keep reading if you want some explanations
+            or if you want to update the code from the original repo yourself!</p>
+
+        <p>First, I created a separate directory called <span class="code">aws-storage</span>. This will keep our AWS
+            code separate
+            from our Azure code. The code is pretty similar to azure-storage so you can just copy the azure-storage
+            folder and rename it aws-storage and start from there.</p>
+
+        <p>We'll need to do some housekeeping before we jump into the code. The book has us export our
+            environment variables in the console before running our microservices which is safer than keeping
+            them in an .env file. Just as the book says, we'll need to export the port number</p>
+
+        <p class="code">export PORT=3000</p>
+
+        <p> Unlike the book, we won't need to export a storage account name or access key. Instead, we'll export
+            our AWS credentials as well as the name of the bucket we just created above by putting the code below into
+            the terminal</p>
+        <p class='code'>
+            export AWS_ACCESS_KEY_ID=&lt;YOUR_ACCESS_KEY&gt;<br />
+            export AWS_SECRET_ACCESS_KEY=&lt;YOUR_SECRET_ACCESS_KEY&gt;<br />
+            export AWS_BUCKET=&lt;YOUR_BUCKET_NAME&gt;
+        </p>
+        <p>
+            If you don't have an AWS access key, check out the start of my first blog entry where I
+            explain how to generate IAM access keys. Your AWS_BUCKET name should be the name of the
+            bucket you just created.</p>
+
+        <p>Next we'll need to add the AWS SDK to our code. First run</p>
+
+        <p class='code'>npm install @aws-sdk/client-s3</p>
+
+        <p>To install the s3 client npm package. Then, in src/index.js of aws-storage, delete
+            <span class="code">@azure/storage-blob</span> since we won't need it anymore. You can also delete this from
+            the package.json. Now import the npm
+            module <span class="code">@aws-sdk/client-s3</span> in its place with <span class="code">const aws =
+                require("@aws-sdk/client-s3")</span>
+        </p>
+
+        <p>This is the only new module you'll need to install. Looking up info for the AWS SDK for
+            JS can be confusing as version 2 and version 3 are drastically different and it can be
+            hard to tell the difference between them from a Google search. I'm using the newer
+            version 3 which is modularized by service.</p>
+
+        <p>The Azure example has some error messages to make sure we have the proper environment variables. Make sure to
+            update the error messages to reflect the environment variables specific to our AWS
+            service we set above. Then update the code that extracts the environment variables into global variables.
+            The only one you'll have in common with the Azure example is the port number</p>
+
+        <p class="code">
+            const port = process.env.PORT<br />
+            const accessKeyId = process.env.AWS_ACCESS_KEY_ID<br />
+            const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY<br />
+            const bucketName = process.env.AWS_BUCKET<br />
+        </p>
+
+        <p>Next, I initialized the s3 client and connected it with my AWS account with</p>
+
+        <p class='code'>const s3Client = new aws.S3Client({<br />
+            &emsp;region: 'us-east-2',<br />
+            &emsp;accessKeyId: process.env.AWS_ACCESS_KEY_ID,<br />
+            &emsp;secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY<br />
+            });</p>
+
+        <p>As always, make sure your region matches the region you created your bucket in. We now have a connection with
+            our AWS account. Now we need to add some details about the specific bucket we want to access and the file
+            name we want to access. We can parameterize this data as detailed in the SDK documentation by creating an
+            function that takes in the file name like so below</p>
+
+        <p class='code'>function getObjectParams(Key) {<br />
+            &emsp;return {<br />
+            &emsp;&emsp;Bucket: bucketName,<br />
+            &emsp;&emsp;Key<br />
+            &emsp;}<br />
+            };</p>
+
+        <p>The Key is the file name that I renamed the video file to when I uploaded it to my
+            bucket. Now the SDK has the proper credentials to access the bucket, knows which
+            universally unique bucket name to search in and knows the file name to fetch. All we
+            need to do now is actually fetch the file.</p>
+
+        <p>Here is a simple function to fetch the file from s3</p>
+
+        <p class='code'>
+            async function fetchFileFromS3(fileName) {<br />
+            &emsp;try {<br />
+            &emsp;&emsp;const { Body, ContentLength } = await s3Client.send( <br />
+            &emsp;&emsp;&emsp;new aws.GetObjectCommand(getObjectParams(fileName))<br />
+            &emsp;&emsp;)<br />
+            &emsp;&emsp;return { Body, ContentLength }<br />
+            &emsp;} catch (e) {<br />
+            &emsp;&emsp;console.error('error fetching file from s3')<br />
+            &emsp;&emsp;console.error(e)<br />
+            &emsp;}<br />
+            }
+        </p>
+
+        <p>This uses our s3 client initialized with our AWS credentials and our object params to
+            fetch both the file and the content length, which we'll need for later. Notice how it takes in a fileName
+            and passes it to the getObjectParams function we created earlier. Now all that's
+            left is updating the Express route to use this function to pipe the file to the client
+        </p>
+
+        <p class='code'>app.get("/video", async (req, res) => {<br />
+            &emsp;const videoPath = req.query.path;<br />
+            &emsp;console.log(`Streaming video from path ${videoPath}.`);<br />
+
+            &emsp;const videoStream = await fetchFileFromS3(videoPath);<br />
+
+            &emsp;res.writeHead(200, {<br />
+            &emsp;&emsp;"Content-Type": "video/mp4",<br />
+            &emsp;&emsp;"Content-Length": videoStream.ContentLength<br />
+            &emsp;})<br />
+            &emsp;videoStream.Body.pipe(res);<br />
+            });
+        </p>
+
+        <p>Voila! We can now enjoy our video served from our S3 bucket if we run this container
+            locally. This takes in the videoPath from the URL and queries our S3 bucket to fetch a file with that name.
+            Make sure to install your npm packages by navigating to the root of your
+            project directory then
+            running</p>
+
+        <p class='code'>npm install</p>
+
+        <p>Then give it a whirl by navigating to the root of aws-storage and running</p>
+
+        <p class='code'>npm start</p>
+
+        <p>If you navigate to <span class="code">http://localhost:3000/video?path=sample_video.mp4</span> you should see
+            your video being
+            served from your s3 bucket!</p>
+
+        <h3>4.4.3 Adding our new micro service to the Docker Compose file</h3>
+
+        <p>Now with all the code updated, you just need to update your docker-compose.yml file to
+            use our new container. Change the yaml for your azure-storage container to the following
+        <p class="code">
+            &emsp;aws-storage:<br />
+            &emsp;&emsp;image: aws-storage<br />
+            &emsp;&emsp;build:<br />
+            &emsp;&emsp;&emsp;context: ./aws-storage<br />
+            &emsp;&emsp;&emsp;dockerfile: Dockerfile<br />
+            &emsp;&emsp;container_name: video-storage<br />
+            &emsp;&emsp;ports:<br />
+            &emsp;&emsp;&emsp;- "4000:80"<br />
+            &emsp;&emsp;environment:<br />
+            &emsp;&emsp;&emsp;- PORT=80<br />
+            &emsp;&emsp;&emsp;- AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}<br />
+            &emsp;&emsp;&emsp;- AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}<br />
+            &emsp;&emsp;&emsp;- AWS_BUCKET=${AWS_BUCKET}<br />
+            &emsp;&emsp;restart: "no"<br />
+        </p>
+
+
+        <p>
+            This will direct Docker to use your new aws-storage container and set your environment
+            variables for your AWS credentials to their values from the host machine.</p>
+        <p>
+            There's just one last thing we'll need to change before we can start this docker container. Remember how we
+            renamed the file from SampleVideo_1280x720_1mb.mp4 to sample_video.mp4? Well the file name is hardcoded in
+            the video-streaming microservice. Just navigate to line 38 in <span
+                class="code">video-streaming/src/index.js</span> and change the path to sample_video.mp4. Sure, we could
+            have kept the same name to stick with the book, but this little change helped us understand how to rename
+            files and understand how these microservices work together a little better.
+
+        </p>
+        <p>
+            Now start the application from the root of example-2 with</p>
+        <p class='code'>
+            docker compose up --build</p>
+        <p>
+            And give it a test by navigating to</p>
+        <p class='code'>
+            http://localhost:4001/video?path=sample_video.mp4</p>
+        <p>
+            Congrats! Now your containers should be working together to serve this video from your S3 bucket.</p>
+        <p>
+            The rest of this chapter uses example-3 from the GitHub repo as you add a Mongo database
+            to your microservice architecture. Make sure to use sample_video.mp4 as your file name for that section! If
+            you don't download my forked repo, you'll need to
+            copy over your aws-storage code to the new example. Adding the database doesn't add any
+            extra steps in AWS.</p>
+
+        <p>Hope this was helpful! Chapter 5 talks about messaging and just introduces RabbitMQ outside of a cloud
+            environment so my next entry will be about chapter 6 where we deploy our microservices to a EKS Kubernetes
+            cluster.</p>
+
+    </div>
+</body>

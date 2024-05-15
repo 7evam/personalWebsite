@@ -59,6 +59,11 @@ p {
     overflow-x: auto;
 }
 
+/* tab indents */
+.code div {
+    margin-left: 20px;
+}
+
 a {
     color: #FF6B6B;
     text-decoration: underline;
@@ -83,7 +88,6 @@ a:hover {
     left: 0;
     width: 100%;
     color: rgba(0, 0, 0, 0.6);
-    padding: 10px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     font-size: 14px;
