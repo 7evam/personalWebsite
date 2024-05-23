@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrapping Microservices with AWS - Part 1</title>
+    <link rel="icon" type="image/png" href="images/meIcon.png">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Voces|Assistant" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" href="../blog.css" type="text/css">
+</head>
+
+<body>
+    <div class="blog-container">
+        <div class="back-container">
+            <a href="https://www.evanklane.com">← Back to homepage</a>
+        </div>
+        <h1>Bootstrapping Microservices with AWS - Chapter 6</h1>
+
+        Welcome back to Bootstrapping Microservices with AWS! Here's where it gets especially interesting as we'll be
+        creating a Kubernetes cluster, adding some
+        nodes to it, then deploying a Docker image from ECR to the new cluster and accessing it from the public
+        Internet. Just like a real application!
+
+        <h3>6.10 Creating a managed Kubernetes cluster in Azure</h3>
+
+        <p>Instead of creating a managed Kubernetes cluster in Azure as per the title of this section in the
+            <a target="_blank"
+                href="https://www.manning.com/books/bootstrapping-microservices-with-docker-kubernetes-and-terraform">Bootstrapping
+                Microservices book</a>, we'll be creating a container orchestration
+            cluster in AWS. AWS has
+            two services for container orchestration: ECS (Elastic Container Service) and EKS (Elastic Kubernetes
+            Service). ECS is Amazon's own alternative to Kubernetes and it
+            is typically easier to set up and scale. However, EKS, Amazon's managed Kubernetes service, is cloud
+            platform agnostic and generally
+            offers more flexibility and advanced features. Now you know two more confusing AWS initialisms!
+        </p>
+
+        <p>For this walkthrough, EKS is the clear choice to go along with the textbook. Just like
+            the other services we've worked with in the past, we can do this through the console or through the CLI.
+            Normally I prefer using the CLI, but when it comes to more complex operations with more options, I feel more
+            comfortable
+            in the console where you can see all the options and be more sure that you're not missing anything. So for
+            this article, I'll be switching back and forth between the console for some of the more involved actions and
+            the CLI for simpler actions.</p>
+
+        <div class="image-container">
+            <img alt="AWS EKS logo" src="images/eks.png" />
+        </div>
+
+        <p>Before we get started let's break down the cost of starting a Kubernetes cluster. With AWS it's always
+            important
+            to be cost aware to prevent your bill from skyrocketing accidentally. Provisioning an EKS cluster will cost
+            us
+            for both the cluster and the EC2 instances that will act as worker nodes that make up the cluster. We also
+            won't
+            be able to use the free tier for either of these as EKS isn't part of the free tier and the only EC2
+            instances
+            we can use are too small to hold our docker image along with the Kubernetes and Docker overhead. This might
+            sound scary, but EKS costs 10 cents per hour and a t3.small instance will give us just enough memory with
+            2gb
+            and only cost us about 2 cents per hour. So if we're able to get this up and running then torn down within
+            an
+            hour, it should only cost us 12 cents. Every extra hour will cost us another 12 cents. Small cost for the
+            gift of knowledge and experience!</p>
+
+        <p>So with all that, let's create a cluster! First we'll just have to navigate to the EKS console and click
+            "Create
+            cluster". From there we get the cluster configuration screen. Like the book, I named my cluster bmdk1. Next,
+            we'll then need to create a cluster service role. The console gives us a handy button to create a role in a
+            new
+            tab so we don't have to start anything over. Click "Create a role in IAM console" and we'll get a 3 step
+            process
+            for creating a role. For step 1, we're just defining that we're giving a role to an EKS cluster and we can
+            stick
+            with the default options and click next. Step 2 will show the recommended permissions policy to add to the
+            role, "AmazonEKSClusterPolicy".
+            This is an AWS managed policy that gives Kubernetes the permissions it requires to manage resources. For
+            Step 3
+            we'll just need to give our role a name (I used “eksClusterRole”) and create it. Once this role is created,
+            we
+            can refresh the list of cluster service roles and attach it to our cluster.</p>
+
+
+
+        <div class="image-container">
+            <img alt="Node group role" src="images/configure_cluster.png" />
+        </div>
+
+        <p>Next we'll have to specify the VPC to use. A VPC (virtual private cloud) is an isolated section of cloud
+            infastructure that we can control the traffic for. Basically, if we want some resrouces to be private and
+            not accessible from the Internet, we can configure them properly in a VPC. Each region in our AWS account
+            comes with a <a target="_blank"
+                href="https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html">default
+                VPC</a>
+            which will make any resources added publicly accessible. For most production
+            applications this isn't a great thing to use as we'll want to be more specific about which services are
+            publicly
+            accessible and which ones are only available to our own services within our VPC so it's recommended to
+            create a new VPC. But since we're just following along with the textbook
+            to
+            get our application online, it's fine for us to use this default VPC.</p>
+
+        <p>If you're using us-east-2 like I
+            am, we'll choose the subnets us-east-2a, us-east-2b and us-east-2c. Each subnet we add makes our cluster
+            more
+            available and resilient to failure. We can also go with the default VPC security group which will allow all
+            traffic in and out of our cluster. Again, if we were setting up a production application this isn't a great
+            practice, but for this use case it's will work just fine and will save us quite a bit of setup time.</p>
+
+        <div class="image-container">
+            <img alt="subnets" src="images/subnets.png" />
+        </div>
+
+        <p>For the rest of the cluster configuration, we can just click through. We don't need any extra add-ons for our
+            simple cluster. Once we create our cluster, it will take a while for AWS to set it up. I timed it and it
+            took
+            over 9 minutes! This would be a great time to aimlessly pace or get a snack.</p>
+
+        <p>Once that's over with, it's time to create the node group. Once the cluster has Active status, go to the
+            Compute tab
+            for the
+            cluster
+            and click "Add node group".</p>
+
+        <div class="image-container">
+            <img alt="Compute tab" src="images/compute_tab.png" />
+            <p class="image-caption">If you ever have an existential crisis, you can always remind yourself at least
+                you're not a nodeless cluster</p>
+        </div>
+
+        <p>First we'll need to set the permissions for each node properly. You can use <a target="_blank"
+                href="https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html">this guide</a>
+            to help give your nodes the proper
+            permissions. To summarize, you'll need to create an IAM role with the AmazonEKSWorkerNodePolicy,
+            AmazonEC2ContainerRegistryReadOnly AWS and AmazonEKS_CNI_Policy managed policies and attach it to your node
+            group. The guide recommends to not attach the AmazonEKS_CNI_Policy to this IAM role but rather to a
+            Kubernetes
+            service account. This allows you to follow the least privilege principle by only attaching the IAM role to
+            specific pods that need the policy rather than the entire node group. This is indeed a good idea for a
+            production application, but for the purposes of following along with the book it adds some extra steps and
+            pitfalls that we can avoid by simply attaching it to this node group. But it's important to be aware of
+            this!</p>
+
+        <div class="image-container">
+            <img alt="Node group role" src="images/node_group_role.png" />
+        </div>
+
+        <p>Then you'll need to provision your nodes. You can go with the standard Amazon Linux 2 (AL2_x86_64) image type
+            whether you have an x86 processor or not (IE a Mac with an M1 chip. I'll cover that later). As mentioned
+            before,
+            a t3.small instance will be just enough. Note that a t3.micro is too small and you'll run into issues later
+            on if you select a micro. Since our simple video streaming website won't ever get traffic other than
+            ourselves, one node will be fine if we want to save some cents, though it's true that one node isn't much of
+            a cluster. I'll be creating my cluster with only one node since the setup is the important part. I updated
+            my Node group scaling configuration to make sure I only ever have 1 node in my cluster.</p>
+
+        <div class="image-container">
+            <img alt="Node group role" src="images/node_group_config.png" />
+            <p class="image-caption">I did end up using a t3.small but a t2.small would do just as well too. Potato
+                Potahto in this case</p>
+        </div>
+
+        <p>You can then click
+            through to the end and create your node group. Once again, this process will take a bit of time so hopefully
+            you didn't get too full from your previous snack. When it's over, you'll have a cluster with a node group
+            ready to roar and you can move on to the next section!</p>
+
+        <h3>6.11 Working with the Azure CLI</h3>
+        <p>Earlier in the chapter the book taught you how to install kubectl and you got to deploy to your local
+            Kubernetes instance. Now we need to connect kubectl to our remote Kubernetes cluster. This chapter in the
+            book helps you install the Azure CLI, but luckily we've already covered how to use the AWS CLI in <a
+                target="_blank" href="https://www.evanklane.com/blogs/bootstrapping-microservices-aws-part-1/">part
+                1</a>.
+            All we need
+            to do now is run one command:</p>
+        <p class="code">
+            aws eks update-kubeconfig \ <br />
+            --region us-east-2 \<br />
+            --name bmdk1<br />
+        </p>
+
+        <p>You should get a success message that starts with <span class="code">Added new context</span> Just make
+            sure to use the region you deployed your cluster in.</p>
+
+        <h3>6.12 Deploying to the production cluster</h3>
+
+        <p>Once your node group is up and running and you've connected your kubectl cli to your newly made cluster,
+            you'll first have to
+            build
+            your docker image. As the book says, clone the <a target="_blank"
+                href="https://github.com/bootstrapping-microservices-2nd-edition/chapter-6">chapter 6 repository</a> and
+            navigate to example 2 (there's
+            almost no code change for this chapter so I did not create a forked repo this time). The book then
+            says you can build with the command <span class="code">docker build -t video-streaming:1 --file
+                Dockerfile-prod .</span> but if you're
+            like me and have a newer Apple computer with a x86 processor (IE an M1 or above) you'll need to run the
+            command
+            <span class="code">docker buildx build --platform=linux/amd64 -t video-streaming:1 --file Dockerfile-prod
+                .</span> To build your image
+            for an ARM processor. This will fit the node(s) that we provisioned for our cluster.
+        </p>
+
+        <p>Now we'll need to push our built image to an ECR repo. If you don't have an ECR repo from <a target="_blank"
+                href="https://www.evanklane.com/blogs/bootstrapping-microservices-aws-part-1/">part 1</a> still,
+            you'll
+            need to create one now. Create it with the command </p>
+        <p class="code">aws ecr create-repository
+            --repository-name
+            video-streaming
+            —region us-east-2</p>
+
+        <p>Then, also like part 1, you'll need to log in to your repo with with</p>
+
+        <p class="code">aws ecr
+            get-login-password --region us-east-2 | docker login --username AWS --password-stdin
+            YOUR_ACCOUNT_ID.dkr.ecr.us-east-2.amazonaws.com</p>
+
+        <p>Next, tag your built image with where you intend to publish it and the version number (1) with <span
+                class="code">docker tag
+                video-streaming:1
+                YOUR_ACCOUNT_ID.dkr.ecr.us-east-2.amazonaws.com/video-streaming:1</span>
+        </p>
+
+        <p>You're now ready to push your image! Just run <span class='code'>docker push
+                YOUR_ACCOUNT_ID.dkr.ecr.us-east-2.amazonaws.com/video-streaming:1</span></p>
+
+        <p>We've now pushed our built image to ECR and we're just one command away from deployment. Before we can deploy
+            to our cluster
+            however, we'll need to update our deploy
+            script just as the book says. In example-2/scripts/deploy.yaml, update the image to be the full url of the
+            image
+            we just pushed. It should be something like <span
+                class="code">YOUR_ACCOUNT_ID.dkr.ecr.us-east-2.amazonaws.com/video-streaming:1</span>. Again, if you're
+            not using us-east-2, remember
+            to replace the region with your region! It may sound repetitive to some people but I made this mistake more
+            than once throughout this chapter.
+        </p>
+
+        <p>Now we can deploy! For a quick sanity check, run <span class="code">kubectl config current-context</span> to
+            make sure your current
+            context for kubectl is your remote cluster we just created. Then run <span class="code">kubectl apply -f
+                scripts/deploy.yaml</span>
+            and
+            you should get a message that says</p>
+        <p class="code">
+            deployment.apps/video-streaming created
+            service/video-streaming created</p>
+
+        <div class="image-container">
+            <img alt="kubectl get-services" src="images/kubectl_apply.png" />
+        </div>
+
+        <p>It shouldn't take long for it to get running after this, just run <span class="code">kubectl get pods</span>
+            and make sure it has
+            running
+            status.</p>
+
+        <p>Once it has a running status, you better go catch it! If you're able to track it down, try running a
+            <span class="code">kubectl
+                get-services</span> and you should see the load balancer for your video streaming application. Copy
+            that URL and paste it into your browser with a /video and you should see your new favorite video served from
+            a highly scalable single node cluster. How thrilling! You've
+            just created a Kubernetes cluster, node group and ECR repo and have a live application that the cluster is
+            running from the ECR repo. Amazing!
+        </p>
+
+        <div class="image-container">
+            <img alt="kubectl get-services" src="images/kubectl_get_services.png" />
+        </div>
+
+        <div class="image-container">
+            <img alt="flixtube screenshot" src="images/flixtube_screenshot.png" />
+            <p class="image-caption">Our highly scalable app accessed through our elastic load balacner! You have
+                permission to roast me for not updating Chrome</p>
+        </div>
+
+        <h3>Destroying your cluster</h3>
+
+        <p>Now to destroy everything. As the book says, run <span class="code">kubectl delete -f
+                scripts/deploy.yaml</span>
+            to delete the micro service. Then, before you can delete the cluster, you'll need to navigate to the console
+            to delete the node group. This can
+            take a while. Finally, you
+            can
+            delete the cluster. Double check in any region that you used that you have no EKS clusters or stray EC2s to
+            make sure you don't get any unexpected charges.</p>
+
+        <p>And this concludes Chapter 6! Hope you found this useful.</p>
+
+
+    </div>
+</body>
