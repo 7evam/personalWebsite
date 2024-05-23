@@ -137,7 +137,7 @@
                 href="https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html">this guide</a>
             to help give your nodes the proper
             permissions. To summarize, you'll need to create an IAM role with the AmazonEKSWorkerNodePolicy,
-            AmazonEC2ContainerRegistryReadOnly AWS and AmazonEKS_CNI_Policy managed policies and attach it to your node
+            AmazonEC2ContainerRegistryReadOnly and AmazonEKS_CNI_Policy managed policies and attach it to your node
             group. The guide recommends to not attach the AmazonEKS_CNI_Policy to this IAM role but rather to a
             Kubernetes
             service account. This allows you to follow the least privilege principle by only attaching the IAM role to
