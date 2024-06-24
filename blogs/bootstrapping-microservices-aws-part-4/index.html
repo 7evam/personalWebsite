@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrapping Microservices with AWS - Part 1</title>
+    <link rel="icon" type="image/png" href="images/meIcon.png">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Voces|Assistant" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" href="../blog.css" type="text/css">
+</head>
+
+<body>
+    <div class="blog-container">
+        <div class="back-container">
+            <a href="https://www.evanklane.com">← Back to homepage</a>
+        </div>
+        <h1>Bootstrapping Microservices with AWS - Chapter 7</h1>
+
+        Welcome back to Bootstrapping Microservices with AWS! In the last edition we got to create a Kubernetes cluster
+        and deploy an application to it. Now we're going to do the exact same thing but with a twist: we'll provision
+        our infastructure with code! Infastructure as Code helps prevent mistakes and make provisioning and destroying
+        resources much quicker and more consistent. There are quite a few ways to provision infastructure as code but
+        the <a>book</a> uses Terraform to provision resources in Azure. So this guide will help you follow along with
+        the book and write Terraform code to deploy an EKS cluster using AWS as a cloud provider. You can alter the code
+        in the <a href="https://github.com/bootstrapping-microservices/chapter-7">offical github repo</a> with the help
+        of this guide or see the finished product with <a href="https://github.com/7evam/chapter-7-aws">my forked
+            version</a> of
+        this github repo.
+        <br />
+        <br />
+
+        <div class="image-container">
+            <img alt="Terraform logo" src="images/terraform_logo.png" />
+        </div>
+
+        <h3>7.7 Creating an Azure resource group for your application</h3>
+
+
+        <p>The title of section 7.7 in the book references an Azure resource group, but we're working with AWS so let's
+            do it our way! AWS has resource groups too so we can do the same thing, but we are presented with a few
+            differences in this example. We'll need to use the AWS provider instead of the Azure provider, connect to
+            our AWS account, and fill out some more information for our resource group than what Azure requires.
+        </p>
+
+        <p>To use the AWS provider, let's check out the <a
+                href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs">Terraform docs</a>. Here we see
+            we can set up the provider with some simple code like below:</p>
+
+
+        <p class="code">terraform {<br />
+            &emsp;required_providers {<br />
+            &emsp;&emsp;aws = {<br />
+            &emsp;&emsp;&emsp;source = "hashicorp/aws"<br />
+            &emsp;&emsp;&emsp;version = "~> 5.0"<br />
+            &emsp;&emsp;}<br />
+            &emsp;}<br />
+            }<br />
+            <br />
+            provider "aws" {<br />
+            &emsp;region = "us-east-2"<br />
+            }<br />
+        </p>
+
+        <p>Let's replace our
+            <span class="code">providers.tf</span> with this. If you remember from previous entires, I'll be using the
+            us-east-2
+            region for
+            this series. If you're using a
+            different region make sure to update it here.
+        </p>
+
+        <p>To connect our AWS account, we can just reference the credentials in our .aws directory. If you don't have
+            credentials in your .aws directory, you can follow along with the
+            beginning of <a href="https://www.evanklane.com/blogs/bootstrapping-microservices-aws-part-1/">part one of
+                this series here</a>. If you have multiple profiles defined in your .aws directory like I do, you can
+            specify here too. Let's update our AWS provider code here.</p>
+
+        <p class="code">
+            provider "aws" {<br />
+            &emsp;region = "us-east-2"<br />
+            &emsp;shared_credentials_files = ["/Users/YOUR USER NAME/.aws/credentials"]<br />
+            &emsp;profile = "YOUR PROFILE (if necessary)"<br />
+            }<br /></p>
+
+        <p>The file path above for credentials will work for Linux/Mac users. If you're using Windows, try <span
+                class="code">C:\Users\USERNAME\.aws\credentials</span></p>
+
+        <p>Now we just have to update our resource group. If you look at the <a
+                href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/resourcegroups_group">Terraform
+                docs for creating a resource group</a>, you'll see that are some
+            extra required fields to create a resource group compared to the Azure provider. We can fill all this out by
+            using a resource type filter that allows all supported AWS resource types and only include resources with
+            the key Stage and value Test with the code below.</p>
+
+        <p class="code">
+            resource "aws_resourcegroups_group" "flixtube" {<br />
+            &emsp;name = "flixtube"<br />
+            &emsp;description = "resource group for flixtube"<br />
+            &emsp;resource_query {<br />
+            &emsp;&emsp;query = jsonencode({<br />
+            &emsp;&emsp;&emsp;ResourceTypeFilters = ["AWS::AllSupported"],<br />
+            &emsp;&emsp;&emsp;TagFilters = [{<br />
+            &emsp;&emsp;&emsp;&emsp;"Key" : "Stage",<br />
+            &emsp;&emsp;&emsp;&emsp;"Values" : ["Test"]<br />
+            &emsp;&emsp;}]<br />
+            &emsp;&emsp;})<br />
+            &emsp;}<br />
+            }<br />
+        </p>
+
+        <p>And that's all for example 1! Try running <span class="code">terraform init</span> then <span
+                class="code">terraform apply</span> and
+            see if this creates a new resource group in your account. Since we're just getting used to provisioning
+            infrastructure with code, let's check the aws console to confirm. We can do this by navigating to the
+            Resource
+            Groups & Tag Editor service in the console and we should see something like this</p>
+
+        <div class="image-container">
+            <img alt="Resource group in AWS" src="images/resource-group.png" />
+        </div>
+
+        <p>You can also see the api call Terraform made for you by navigating to CloudTrail in your AWS console.
+            CloudTrail is a service that logs API calls to your AWS account by default. If you click through your
+            events, you should find something that looks like this</p>
+
+        <div class="image-container">
+            <img alt="Log from cloudtrail" src="images/cloudtrail.png" />
+        </div>
+
+        <p>Once you see your resource group in your account, make sure to follow along in the book and run <span
+                class="code">terraform destroy</span> and make sure your resource group gets removed. This will help us
+            for the next examples, but it also shows one of the biggest benefits of using Terraform, how easy it is to
+            take down multiple resources.</p>
+
+        <h3>7.8 Creating your container registry</h3>
+        <p>Great! Now let's move on to example 2. This example has us creating a container registry. This step is quite
+            easy with AWS! According to the <a
+                href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository#tags">docs</a>
+            we just need to provide a name for the registry. While we're at it, we should add the tags necessary to
+            include our registry in the resource group.</p>
+
+        <p>The example in the book also has us outputting the registry
+            hostname, username and password. As mentioned in the book, outputs are useful for debugging but you should
+            avoid outputting sensitive values. Azure's container registry has a static username and password that can be
+            used as an output,
+            but AWS doesn't use a static username and password to authenticate to ECR. Instead, AWS uses temporary
+            tokens, as we've used in previous entries. So for our AWS version of this chapter, let's just simply output
+            the hostname to be sure that our resource was deployed as expected and so we understand how outputs work.
+            Practicing with the <span class="code">sensitive = true</span> argument can be good practice too.
+            This leaves our code looking like this:</p>
+
+        <p class="code">
+            resource "aws_ecr_repository" "flixtube" {<br />
+            &emsp;name = "flixtube"<br />
+            &emsp;&emsp;Stage = "Test"<br />
+            &emsp;}<br />
+            }<br />
+            <br />
+            output "repository_url" {<br />
+            &emsp;value = aws_ecr_repository.flixtube.repository_url<br />
+            }<br />
+        </p>
+
+        <p>Since we're in a new directory from the last example, we'll need to run <span class="code">terrform
+                init</span> again. Then we
+            should be able to run <span class="code">terrform apply</span> and see a new repository in the console if we
+            navigate to ECR! We should also see this repo as part of the resource group, as shown below.</p>
+        <div class="image-container">
+            <img alt="Resource group in AWS with ECR repository" src="images/resource_group_with_ecr.png" />
+        </div>
+
+        <p>That was easy! Now let's run <span class="code">terraform destroy</span> and move on to example 3.</p>
+
+        <h3>7.10 Creating our Kubernetes cluster</h3>
+
+        <p>Now it's time for what we've all been waiting for, deploying a Kubernetes cluster! Before we go any further,
+            remember from part 3 that this will cost us a little bit of money, but if we do everything right, it should
+            be around 12 cents. If we don't destroy our resrouces right after we're done with them though, the cost can
+            skyrocket so make sure to not leave anything running!</p>
+        <p>
+            To launch our cluster, we'll need to
+            define an IAM role for our cluster, create our cluster, define an IAM role for our node group, and create
+            our node group. It's important we follow in that order.</p>
+
+        <p>Let's start by defining our cluster's IAM role. There's a few types of syntax we can use to do this. We could
+            use <a href="https://developer.hashicorp.com/terraform/language/expressions/strings#heredoc-strings">Heredoc
+                syntax,</a> <a
+                src="https://developer.hashicorp.com/terraform/language/expressions/strings#generating-json-or-yaml">JSON
+                encoding</a>, or define our role as a data resource. The first two involve us adding an arbitrary
+            string to our file that Terraform can't validate. If we were to have any typos, we wouldn't have any sort of
+            specified error message. Defining our IAM roles as a data resource however will give Terraform the ability
+            to catch typos if we run a <span class="code">terraform validate</span> on our code, so let's go ahead and
+            choose that route.
+        </p>
+
+        <p>Let's create a new file for our role called <span class="code">eks-role.tf</span>. We'll start by defining an
+            IAM policy document to allow EKS to assume an IAM role.</p>
+
+        <p class="code">
+            data "aws_iam_policy_document" "assume_role_cluster" {<br />
+            &emsp;statement {<br />
+            &emsp;&emsp;effect = "Allow"<br />
+            <br />
+            &emsp;&emsp;principals {<br />
+            &emsp;&emsp;&emsp;type = "Service"<br />
+            &emsp;&emsp;&emsp;identifiers = ["eks.amazonaws.com"]<br />
+            &emsp;&emsp;}<br />
+            <br />
+            &emsp;&emsp;actions = ["sts:AssumeRole"]<br />
+            &emsp;}<br />
+            }<br />
+        </p>
+
+        <p>Now, let's create the IAM role for our cluster.</p>
+
+        <p class="code">
+            resource "aws_iam_role" "flixtube_eks_role" {<br />
+            &emsp;name = "flixtube_eks_cluster_role"<br />
+            &emsp;assume_role_policy = data.aws_iam_policy_document.assume_role_cluster.json<br />
+            }
+        </p>
+
+        <p>Lastly, let's attach the policy and the role.</p>
+
+        <p class="code">
+            resource "aws_iam_role_policy_attachment" "eks_cluster_policy_attachment" {<br />
+            &emsp;policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"<br />
+            &emsp;role = aws_iam_role.flixtube_eks_role.name<br />
+            }
+        </p>
+
+        <p>This role has the same managed policy as we used in <a
+                src="https://www.evanklane.com/blogs/bootstrapping-microservices-aws-part-3/">part 3</a> just in code
+            form. By now, hopefully you've noticed that we're doing all all of the same steps as part 3. So we now have
+            the
+            role for our cluster, but we need to create the cluster itself. When we created the cluster in part 3, we
+            decided to use all available subnets in our default VPC for ease of launch. With Terraform, we'll first need
+            to write code to get information about our VPC and subnets. This is as easy as getting the default VPC with
+        </p>
+
+        <p class="code">
+            data "aws_vpc" "default_vpc" {<br />
+            &emsp;default = true<br />
+            }
+        </p>
+
+        <p>then getting the subnets associated with the default VPC with</p>
+
+        <p class="code">
+            data "aws_subnets" "subnets" {<br />
+            &emsp;filter {<br />
+            &emsp;&emsp;name = "vpc-id"<br />
+            &emsp;&emsp;values = [data.aws_vpc.default_vpc.id]<br />
+            &emsp;}<br />
+            }
+        </p>
+
+        <p>Now we have all the information we need to launch our cluster. Let's create a new file for our cluster
+            called <span class="code">kubernetes-cluster.tf</span> and use the following code</p>
+
+        <p class="code">
+            resource "aws_eks_cluster" "flixtube" {<br />
+            &emsp;name = var.app_name<br />
+            &emsp;version = var.kubernetes_version<br />
+            &emsp;tags = {<br />
+            &emsp;&emsp;Stage = "Test"<br />
+            &emsp;}<br />
+            &emsp;vpc_config {<br />
+            &emsp;&emsp;subnet_ids = data.aws_subnets.subnets.ids<br />
+            &emsp;}<br />
+            &emsp;role_arn = aws_iam_role.flixtube_eks_role.arn<br />
+            &emsp;depends_on = [aws_iam_role_policy_attachment.eks_cluster_policy_attachment]<br />
+            }
+        </p>
+
+        <p>There's some key things to notice in the code here. First, notice how the subnet ids are referenced in the
+            subnets varaible we created above. You'll also see that the IAM role we defined earlier gets referenced by
+            its arn here. Most importantly though, look at the array for <span class="code">depends_on</span>. This
+            references the action of attaching our policy to our role and ensures that this role is created with the
+            approriate policy before our cluster is launched.</p>
+
+        <p>Awesome! We've now written code to create our cluster. We just need to create a node group. Again we'll need
+            to start by defining an IAM role for the cluster. Create a file called <span
+                class="code">worker-node-role.tf</span> and
+            use this code to create the IAM role</p>
+
+        <p class="code">
+            data "aws_iam_policy_document" "assume_role_node" {<br />
+            &emsp;statement {<br />
+            &emsp;&emsp;effect = "Allow"<br />
+            <br />
+            &emsp;&emsp;principals {<br />
+            &emsp;&emsp;&emsp;type = "Service"<br />
+            &emsp;&emsp;&emsp;identifiers = ["ec2.amazonaws.com"]<br />
+            &emsp;&emsp;}<br />
+
+            &emsp;&emsp;actions = ["sts:AssumeRole"]<br />
+            &emsp;}<br />
+            }<br />
+            <br />
+            resource "aws_iam_role" "flixtube_node_role" {<br />
+            &emsp;name = "flixtube_node_role"<br />
+            &emsp;assume_role_policy = data.aws_iam_policy_document.assume_role_node.json<br />
+            }
+            <br />
+            resource "aws_iam_role_policy_attachment" "ecr_readonly_policy_attachment" {<br />
+            &emsp;policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"<br />
+            &emsp;role = aws_iam_role.flixtube_node_role.name<br />
+            }<br />
+
+            resource "aws_iam_role_policy_attachment" "eks_cni_policy_attachment" {<br />
+            &emsp;policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"<br />
+            &emsp;role = aws_iam_role.flixtube_node_role.name<br />
+            }
+            <br />
+            resource "aws_iam_role_policy_attachment" "eks_worker_node_policy_attachment" {<br />
+            &emsp;policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"<br />
+            &emsp;role = aws_iam_role.flixtube_node_role.name<br />
+            }<br />
+
+        </p>
+
+        <p>You should notice that this is using the same policies as part 3. One note I forgot to mention last time is
+            that this gives all of your nodes permission to read all of your repositories in ECR for your account. To
+            follow the principal of least privilege you
+            can create a custom policy that only allows each node to read from the ARN of your desired ECR repo. Since
+            we're just launching quickly here we'll be fine without this policy, but be sure to keep that in mind when
+            creating any clusters in the real world.</p>
+
+        <p>For the final step of launching our cluster, we'll just need to define our node group. Create one last file
+            called <span class="code">node-group.tf</span> and use this code</p>
+
+        <p class="code">
+            resource "aws_eks_node_group" "flixtube" {<br />
+            &emsp;cluster_name = var.app_name<br />
+            &emsp;node_group_name = "flixtube"<br />
+            &emsp;node_role_arn = aws_iam_role.flixtube_node_role.arn<br />
+            &emsp;subnet_ids = data.aws_subnets.subnets.ids<br />
+            &emsp;instance_types = ["t3.small"]<br />
+            &emsp;tags = {<br />
+            &emsp;&emsp;Stage = "Test"<br />
+            &emsp;}<br />
+            <br />
+            &emsp;scaling_config {<br />
+            &emsp;&emsp;desired_size = 1<br />
+            &emsp;&emsp;max_size = 2<br />
+            &emsp;&emsp;min_size = 1<br />
+            &emsp;}<br />
+            <br />
+            &emsp;update_config {<br />
+            &emsp;&emsp;max_unavailable = 1<br />
+            &emsp;}<br />
+            <br />
+            &emsp;depends_on = [<br />
+            &emsp;&emsp;aws_eks_cluster.flixtube,<br />
+            &emsp;&emsp;aws_iam_role_policy_attachment.ecr_readonly_policy_attachment,<br />
+            &emsp;&emsp;aws_iam_role_policy_attachment.eks_cni_policy_attachment,<br />
+            &emsp;&emsp;aws_iam_role_policy_attachment.eks_worker_node_policy_attachment<br />
+            &emsp;]<br />
+            }<br />
+
+        </p>
+
+        <p>There shouldn't be anything groundbreaking in here. This is simply all of the configurations we used in part
+            3 in code form. A
+            few things to notice are how we
+            can re-use the subnet IDs as defined in our <span class="code">kubernetes-cluster.tf</span> file, can define
+            the cluster name with a variable we'll define when we run
+            <span class="code">terraform apply</span> (as per the book) and that the <span
+                class="code">depends_on</span> array
+            includes all of the role attachments PLUS the creation of the cluster. Can't have a node group without a
+            cluster!
+        </p>
+
+        <p>Okay, we've done a lot so far and we're almost home free. We now have all of the Terraform code we need to
+            launch our EKS cluster. If you haven't done so already, let's run <span class="code">terraform init</span>
+            and then see
+            what we'll provision with <span class="code">terraform plan</span>. You should see something like this for
+            the first 2 of
+            10 resources you'll provision.</p>
+
+        <div class="image-container">
+            <img alt="Result of Terraform plan" src="images/terraform_plan.png" />
+        </div>
+        <p>If all looks good, run <span class="code">terraform apply</span> and sit back and watch the magic happen.
+            Terraform should
+            ask you for a value for var.app_name and make sure to input <span class="code">flixtube</span>. You should
+            then confirm that you want to create 10 resources, but remember, this will cost a little bit of money (~12
+            cents) so be sure to destroy your resources right when you're done. Just as with
+            part 3, we'll need to wait for our cluster and our node group to spin up and each can take up to 10 minutes
+            long. This time you can take one long snack break instead of 2 smaller ones. Once this process is done
+            running, look around in the AWS console and see that everything is up and running as expected. You should
+            also see an endpoint for your cluster and a URL for your ECR repository. If it's
+            looking good, then we can start with our final test: deploying our application!</p>
+
+        <p>Navigate to <span class="code">example-4</span> in my companion repo and you should see an
+            updated
+            <span class="code">deploy.yaml</span> script. Make sure to fill in your AWS account ID for the image url and
+            try deploying! This will
+            be the same steps as part 3 but our application is now called "flixtube" instead of "video-streaming." Guess
+            our marketing team finally came up with a good name.
+        </p>
+
+        <p>As a refresher, here's the commands you'll have to run. Make sure you're at the root of <span
+                class="code">example-4</span>. First, run</p>
+
+        <p class="code">
+            aws eks update-kubeconfig \<br />
+            --region us-east-2 \<br />
+            --name flixtube \<br />
+        </p>
+
+        <p>to update kubectl to connect to our cluster through the AWS CLI. Then run</p>
+        <p class="code">docker buildx build --platform=linux/amd64 -t flixtube:1 --file Dockerfile-prod .</p>
+        <p>if you have an ARM processor or</p>
+        <p class="code">docker build -t flixtube:1 --file Dockerfile-prod .</p>
+
+        <p>if you have an x86 processor to build our image. Then, run</p>
+
+        <p class="code">aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin
+            YOUR_ACCOUNT_ID.dkr.ecr.us-east-2.amazonaws.com
+        </p>
+
+        <p>to login to our ECR repo and</p>
+
+        <p class="code">docker tag flixtube:1 YOUR_ACCOUNT_ID.dkr.ecr.us-east-2.amazonaws.com/flixtube:1</p>
+
+        <p>to tag our built image. Finally, run</p>
+
+        <p class="code">docker push YOUR_ACCOUNT_ID.dkr.ecr.us-east-2.amazonaws.com/flixtube:1</p>
+
+        <p>to push our built and tagged image to our ECR repo then</p>
+
+        <p class="code">kubectl apply -f scripts/deploy.yaml</p>
+
+        <p>to run our deployment script. That should do it!</p>
+
+        <p>You should now be able to run <span class="code">kubectl get pods</span> to see your pods and <span
+                class="code">kubectl
+                get
+                services</span> to get a URL of your load balancer. Copy the URL of your load balacner, navigate to
+            <span class="code">/video</span> and you should get the familiar but nevertheless glorious dinosaur video.
+        </p>
+
+        <div class="image-container">
+            <img alt="The final result video" src="images/video.png" />
+            <p class="image-caption">Our reward for creating a Kubernetes cluster with code!</p>
+        </div>
+
+        <p>And that's it! Congratulations on deploying a microservice application to a EKS cluster you created entirely
+            with code! When you're done poking around and experimenting with the result, make sure to run <span
+                class="code">kubectl
+                delete -f scripts/deploy.yaml</span> to delete the deployment to
+            our cluster, delete the image in our ECR repo, and most importantly, navigate back to <span
+                class="code">example-3</span> and run <span class="code">terraform destroy</span> to get rid of all
+            these
+            resources
+            before they start racking up charges to your account. I recommend double checking in your console under EKS
+            and EC2 to make sure there are no services still running.</p>
+
+        <p>I hope you found this helpful!</p>
+
+    </div>
+</body>
