@@ -25,12 +25,14 @@
         and deploy an application to it. Now we're going to do the exact same thing but with a twist: we'll provision
         our infastructure with code! Infastructure as Code helps prevent mistakes and make provisioning and destroying
         resources much quicker and more consistent. There are quite a few ways to provision infastructure as code but
-        the <a
+        the <a target="_blank"
             href="https://www.manning.com/books/bootstrapping-microservices-with-docker-kubernetes-and-terraform">book</a>
         uses Terraform to provision resources in Azure. So this guide will help you follow along with
         the book and write Terraform code to deploy an EKS cluster using AWS as a cloud provider. You can alter the code
-        in the <a href="https://github.com/bootstrapping-microservices/chapter-7">offical github repo</a> with the help
-        of this guide or see the finished product with <a href="https://github.com/7evam/chapter-7-aws">my forked
+        in the <a target="_blank" href="https://github.com/bootstrapping-microservices/chapter-7">offical github
+            repo</a> with the help
+        of this guide or see the finished product with <a target="_blank"
+            href="https://github.com/7evam/chapter-7-aws">my forked
             version</a> of
         this github repo.
         <br />
@@ -49,7 +51,7 @@
             our AWS account, and fill out some more information for our resource group than what Azure requires.
         </p>
 
-        <p>To use the AWS provider, let's check out the <a
+        <p>To use the AWS provider, let's check out the <a target="_blank"
                 href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs">Terraform docs</a>. Here we see
             we can set up the provider with some simple code like below:</p>
 
@@ -78,7 +80,8 @@
 
         <p>To connect our AWS account, we can just reference the credentials in our .aws directory. If you don't have
             credentials in your .aws directory, you can follow along with the
-            beginning of <a href="https://www.evanklane.com/blogs/bootstrapping-microservices-aws-part-1/">part one of
+            beginning of <a target="_blank"
+                href="https://www.evanklane.com/blogs/bootstrapping-microservices-aws-part-1/">part one of
                 this series here</a>. If you have multiple profiles defined in your .aws directory like I do, you can
             specify here too. Let's update our AWS provider code here.</p>
 
@@ -92,7 +95,7 @@
         <p>The file path above for credentials will work for Linux/Mac users. If you're using Windows, try <span
                 class="code">C:\Users\USERNAME\.aws\credentials</span></p>
 
-        <p>Now we just have to update our resource group. If you look at the <a
+        <p>Now we just have to update our resource group. If you look at the <a target="_blank"
                 href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/resourcegroups_group">Terraform
                 docs for creating a resource group</a>, you'll see that are some
             extra required fields to create a resource group compared to the Azure provider. We can fill all this out by
@@ -123,7 +126,7 @@
             Groups & Tag Editor service in the console and we should see something like this</p>
 
         <div class="image-container">
-            <img alt="Resource group in AWS" src="images/resource-group.png" />
+            <img alt="Resource group in AWS" target="_blank" src="images/resource-group.png" />
         </div>
 
         <p>You can also see the api call Terraform made for you by navigating to CloudTrail in your AWS console.
@@ -141,7 +144,7 @@
 
         <h3>7.8 Creating your container registry</h3>
         <p>Great! Now let's move on to example 2. This example has us creating a container registry. This step is quite
-            easy with AWS! According to the <a
+            easy with AWS! According to the <a target="_blank"
                 href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository#tags">docs</a>
             we just need to provide a name for the registry. While we're at it, we should add the tags necessary to
             include our registry in the resource group.</p>
@@ -190,8 +193,9 @@
             our node group. It's important we follow in that order.</p>
 
         <p>Let's start by defining our cluster's IAM role. There's a few types of syntax we can use to do this. We could
-            use <a href="https://developer.hashicorp.com/terraform/language/expressions/strings#heredoc-strings">Heredoc
-                syntax,</a> <a
+            use <a target="_blank"
+                href="https://developer.hashicorp.com/terraform/language/expressions/strings#heredoc-strings">Heredoc
+                syntax,</a> <a target="_blank"
                 src="https://developer.hashicorp.com/terraform/language/expressions/strings#generating-json-or-yaml">JSON
                 encoding</a>, or define our role as a data resource. The first two involve us adding an arbitrary
             string to our file that Terraform can't validate. If we were to have any typos, we wouldn't have any sort of
@@ -236,7 +240,7 @@
             }
         </p>
 
-        <p>This role has the same managed policy as we used in <a
+        <p>This role has the same managed policy as we used in <a target="_blank"
                 src="https://www.evanklane.com/blogs/bootstrapping-microservices-aws-part-3/">part 3</a> just in code
             form. By now, hopefully you've noticed that we're doing all all of the same steps as part 3. So we now have
             the
